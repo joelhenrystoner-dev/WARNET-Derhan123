@@ -278,6 +278,7 @@
 </head>
 <body>
 
+    <!-- 🔐 SECURITY APP LOCK GATE OVERLAY (UPDATED WITH NEW ADMIN TIERS) -->
     <div class="auth-gate-overlay" id="authGate">
         <div class="auth-gate-box">
             <h2>🔐 Warnet Derhan123</h2>
@@ -293,6 +294,7 @@
         </div>
     </div>
 
+    <!-- APPLICATION NAVBAR -->
     <div class="navbar">
         <div class="brand">WARNET DERHAN123</div>
         <div class="nav-tabs">
@@ -303,14 +305,17 @@
         </div>
     </div>
 
+    <!-- MAIN INTERFACE HEADER -->
     <div class="header">
         
+        <!-- Tab 1: Dashboard Panel -->
         <div class="tab-content active" id="tab-dashboard">
             <div class="control-group" style="padding: 12px; display: flex; align-items: center; justify-content: center; background: rgba(114, 137, 218, 0.05);">
                 <span style="font-size: 13px; color: #7289da; font-weight: bold; letter-spacing: 0.5px;">💡 OPERATOR NOTE: USE THE 3-DOTS (⋮) ON EACH PC CARD TO CONTROL OR LOGOUT SESSIONS</span>
             </div>
         </div>
 
+        <!-- Tab 2: Members Control Panel -->
         <div class="tab-content" id="tab-members">
             <div class="control-group">
                 <h3>✦ New Member Registration</h3>
@@ -330,6 +335,7 @@
             </div>
         </div>
 
+        <!-- Tab 3: Billing Allocation Panel -->
         <div class="tab-content" id="tab-billing">
             <div class="control-group">
                 <h3>✦ PC Allocation & Time Session</h3>
@@ -340,6 +346,7 @@
             </div>
         </div>
 
+        <!-- Tab 4: Cafe F&B Menu Hub System -->
         <div class="tab-content" id="tab-cafe">
             <div class="control-group" style="flex: 2;">
                 <h3>✦ Premium Food & Beverage Menu</h3>
@@ -363,8 +370,10 @@
 
     </div>
 
+    <!-- MAIN MONITOR GRID -->
     <div class="grid-container" id="pcGrid"></div>
 
+    <!-- DYNAMIC DIALOG MODAL OVERLAY -->
     <div class="modal-overlay" id="customModal">
         <div class="modal-box">
             <div class="modal-header" id="modalHeader"></div>
@@ -402,21 +411,20 @@
         });
     }
 
-    // --- 🔐 SECURITY GATE VERIFICATION LOGIC ---
+    // --- 🔐 SECURITY GATE VERIFICATION LOGIC (UPDATED CREDENTIALS) ---
     function verifyAdminGate() {
         let userInp = document.getElementById("gateUser").value.trim();
         let passInp = document.getElementById("gatePass").value;
         let errorEl = document.getElementById("authErrorMsg");
 
-        if (userInp === "admin" && passInp === "Warnetderhan123") {
-            // Success: Remove screen overlay with animation
+        // Validasi menggunakan Username & Password Baru (Capslock Sensitive)
+        if (userInp === "ADMIN" && passInp === "WARNETDERHAN123") {
             let gate = document.getElementById("authGate");
             gate.style.opacity = "0";
             setTimeout(() => {
                 gate.style.display = "none";
             }, 400);
         } else {
-            // Failure: Show premium blinking error
             errorEl.style.display = "block";
             document.getElementById("gatePass").value = "";
             document.getElementById("gatePass").focus();
