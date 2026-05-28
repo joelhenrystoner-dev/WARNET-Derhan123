@@ -130,6 +130,8 @@
         .btn-green:hover { box-shadow: 0 6px 20px rgba(67, 181, 129, 0.5); }
         .btn-orange-modal { background: linear-gradient(135deg, #f5a623, #d28716); box-shadow: 0 4px 15px rgba(245, 166, 35, 0.3); }
         .btn-orange-modal:hover { box-shadow: 0 6px 20px rgba(245, 166, 35, 0.5); }
+        .btn-cart { background: linear-gradient(135deg, #e67e22, #d35400); box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3); }
+        .btn-cart:hover { box-shadow: 0 6px 15px rgba(230, 126, 34, 0.5); }
 
         /* Database Visual List */
         .db-list { 
@@ -151,6 +153,60 @@
         .badge.vip-tier { background: linear-gradient(90deg, #f6d365, #fda085); color: #111; box-shadow: 0 2px 5px rgba(245, 166, 35, 0.3); }
         .badge.banned-tier { background: #ed4245; color: white; box-shadow: 0 0 8px rgba(237, 66, 69, 0.4); }
         .badge-time { background: #43b581; color: white; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 800; box-shadow: 0 0 8px rgba(67, 181, 129, 0.3); }
+
+        /* --- FOOD MENU HUB STYLING --- */
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            max-height: 250px;
+            overflow-y: auto;
+            width: 100%;
+            padding-right: 5px;
+        }
+        .menu-item-card {
+            background: rgba(15, 17, 20, 0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+        .menu-item-card:hover {
+            background: rgba(255,255,255,0.03);
+            border-color: #e67e22;
+        }
+        .menu-item-name { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+        .menu-item-price { font-size: 13px; font-weight: 800; color: #f5a623; margin-bottom: 10px; }
+        .menu-item-card button { padding: 6px 12px; font-size: 11px; border-radius: 6px; }
+
+        /* Cart Visual Display */
+        .cart-list {
+            list-style: none;
+            background: rgba(15, 17, 20, 0.4);
+            border-radius: 10px;
+            max-height: 140px;
+            overflow-y: auto;
+            border: 1px solid rgba(255,255,255,0.03);
+            margin-bottom: 15px;
+        }
+        .cart-list li {
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+        .cart-list li:last-child { border-bottom: none; }
+        .cart-total-box {
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 15px;
+            background: rgba(0,0,0,0.2); padding: 10px 12px; border-radius: 8px;
+        }
 
         /* Grid PC Layout */
         .grid-container { 
@@ -282,23 +338,28 @@
 </head>
 <body>
 
+    <!-- APPLICATION NAVBAR -->
     <div class="navbar">
         <div class="brand">WARNET DERHAN123</div>
         <div class="nav-tabs">
             <button class="nav-tab active" onclick="switchTab('dashboard')">🖥️ PC Dashboard</button>
             <button class="nav-tab" onclick="switchTab('members')">👥 Member Management</button>
             <button class="nav-tab" onclick="switchTab('billing')">⚙️ System Allocation</button>
+            <button class="nav-tab" onclick="switchTab('cafe')">🍽️ Food & Beverage</button>
         </div>
     </div>
 
+    <!-- MAIN INTERFACE HEADER -->
     <div class="header">
         
+        <!-- Tab 1: Dashboard Panel -->
         <div class="tab-content active" id="tab-dashboard">
             <div class="control-group" style="padding: 12px; display: flex; align-items: center; justify-content: center; background: rgba(114, 137, 218, 0.05);">
                 <span style="font-size: 13px; color: #7289da; font-weight: bold; letter-spacing: 0.5px;">💡 OPERATOR NOTE: USE THE 3-DOTS (⋮) ON EACH PC CARD TO CONTROL OR LOGOUT SESSIONS</span>
             </div>
         </div>
 
+        <!-- Tab 2: Members Control Panel -->
         <div class="tab-content" id="tab-members">
             <div class="control-group">
                 <h3>✦ New Member Registration</h3>
@@ -318,6 +379,7 @@
             </div>
         </div>
 
+        <!-- Tab 3: Billing Allocation Panel -->
         <div class="tab-content" id="tab-billing">
             <div class="control-group">
                 <h3>✦ PC Allocation & Time Session</h3>
@@ -328,11 +390,40 @@
             </div>
         </div>
 
-    </div>
-
-    <div class="grid-container" id="pcGrid">
+        <!-- Tab 4: NEW - Cafe F&B Menu Hub System -->
+        <div class="tab-content" id="tab-cafe">
+            <div class="control-group" style="flex: 2;">
+                <h3>✦ Premium Food & Beverage Menu</h3>
+                <div class="food-grid" id="foodMenuGrid">
+                    <!-- Cards injected by JS -->
+                </div>
+            </div>
+            <div class="control-group" style="flex: 1.2;">
+                <h3>🛒 Order Cart</h3>
+                <ul class="cart-list" id="cartVisualList">
+                    <li style="color:#6b6f77; justify-content:center; padding:15px;"><i>Your cart is empty</i></li>
+                </ul>
+                <div class="cart-total-box">
+                    <span>Total Price:</span>
+                    <span id="cartTotalPriceVisual">Rp 0</span>
+                </div>
+                <div class="input-wrapper">
+                    <select id="deliveryTargetPC">
+                        <!-- Filled by JS -->
+                    </select>
+                </div>
+                <button class="btn-cart" onclick="checkoutCafeOrder()">Place Cafe Order</button>
+            </div>
         </div>
 
+    </div>
+
+    <!-- MAIN MONITOR GRID -->
+    <div class="grid-container" id="pcGrid">
+        <!-- Generated Cards via JavaScript -->
+    </div>
+
+    <!-- DYNAMIC DIALOG MODAL OVERLAY -->
     <div class="modal-overlay" id="customModal">
         <div class="modal-box">
             <div class="modal-header" id="modalHeader"></div>
@@ -347,6 +438,17 @@
     let pcTargetId = null; 
     let memberTargetIndex = null; 
     let currentModalAction = ""; 
+    
+    // Cafe Cart Memory Engine
+    let cafeCart = [];
+    const foodMenuData = [
+        { id: 101, name: "Special Risol Mayo (3 Pcs)", price: 15000 },
+        { id: 102, name: "Indomie Goreng Double + Egg", price: 12000 },
+        { id: 103, name: "Elite Crispy Chicken Rice", price: 25000 },
+        { id: 104, name: "Premium Iced Palm Sugar Latte", price: 18000 },
+        { id: 105, name: "Mineral Water (Cold)", price: 5000 },
+        { id: 106, name: "French Fries Premium Platter", price: 14000 }
+    ];
     
     // Setup 24 Client Stations
     for(let i = 1; i <= 24; i++) {
@@ -371,6 +473,7 @@
     function renderApp() {
         renderMembers();
         renderPCs();
+        renderFoodMenuHub();
     }
 
     function renderMembers() {
@@ -428,9 +531,15 @@
         }
 
         let selectPC = document.getElementById('pilihPC');
+        let deliveryPC = document.getElementById('deliveryTargetPC');
+        
         selectPC.innerHTML = '';
+        deliveryPC.innerHTML = '<option value="">-- SELECT TARGET STATION PC --</option>';
+        
         pcs.forEach(pc => {
-            selectPC.innerHTML += `<option value="${pc.id}">${pc.name} ${pc.status === 'online' ? '(IN USE)' : ''}</option>`;
+            let statusText = pc.status === 'online' ? '(IN USE)' : '';
+            selectPC.innerHTML += `<option value="${pc.id}">${pc.name} ${statusText}</option>`;
+            deliveryPC.innerHTML += `<option value="${pc.id}">${pc.name} ${pc.status === 'online' ? `[Active: ${pc.user}]` : '[Standby]'}</option>`;
         });
     }
 
@@ -479,6 +588,90 @@
         });
     }
 
+    // --- NEW: GENERATE CAFE F&B INTERFACES ---
+    function renderFoodMenuHub() {
+        let menuGrid = document.getElementById('foodMenuGrid');
+        menuGrid.innerHTML = '';
+        
+        foodMenuData.forEach(item => {
+            menuGrid.innerHTML += `
+                <div class="menu-item-card">
+                    <div class="menu-item-name">${item.name}</div>
+                    <div class="menu-item-price">Rp ${item.price.toLocaleString('id-ID')}</div>
+                    <button onclick="addItemToCart(${item.id})">🛒 Add to Cart</button>
+                </div>`;
+        });
+    }
+
+    function addItemToCart(itemId) {
+        let item = foodMenuData.find(f => f.id === itemId);
+        let cartItem = cafeCart.find(c => c.id === itemId);
+        
+        if (cartItem) {
+            cartItem.qty++;
+        } else {
+            cafeCart.push({ id: item.id, name: item.name, price: item.price, qty: 1 });
+        }
+        updateCartVisuals();
+    }
+
+    function updateCartVisuals() {
+        let cartList = document.getElementById('cartVisualList');
+        let totalHTML = document.getElementById('cartTotalPriceVisual');
+        
+        cartList.innerHTML = '';
+        
+        if (cafeCart.length === 0) {
+            cartList.innerHTML = '<li style="color:#6b6f77; justify-content:center; padding:15px;"><i>Your cart is empty</i></li>';
+            totalHTML.innerText = "Rp 0";
+            return;
+        }
+        
+        let grandTotal = 0;
+        cafeCart.forEach((c, idx) => {
+            let itemTotal = c.price * c.qty;
+            grandTotal += itemTotal;
+            cartList.innerHTML += `
+                <li>
+                    <span><b>${c.qty}x</b> ${c.name}</span>
+                    <span style="color:#f5a623;">Rp ${itemTotal.toLocaleString('id-ID')}</span>
+                </li>`;
+        });
+        
+        totalHTML.innerText = `Rp ${grandTotal.toLocaleString('id-ID')}`;
+    }
+
+    function checkoutCafeOrder() {
+        let targetPcId = document.getElementById('deliveryTargetPC').value;
+        if (cafeCart.length === 0) return alert("Please select items to buy first!");
+        if (!targetPcId) return alert("Please specify the delivery target PC station!");
+        
+        let pc = pcs.find(p => p.id == targetPcId);
+        
+        // Show premium modal processing checkout orders
+        document.getElementById('modalHeader').innerHTML = `🍳 Order Sent to Kitchen!`;
+        document.getElementById('modalHeader').style.background = `linear-gradient(135deg, #e67e22, #d35400)`;
+        
+        let itemsSummary = cafeCart.map(c => `• ${c.qty}x ${c.name}`).join('<br>');
+        document.getElementById('modalMessage').innerHTML = `
+            The following premium items are being prepared for dispatch:<br><br>
+            <div style="text-align:left; background:rgba(0,0,0,0.3); padding:12px; border-radius:8px; font-size:13px; margin-bottom:12px; color:#fff;">
+                ${itemsSummary}
+            </div>
+            Destination Station: <span style="color:#f5a623; font-weight:bold;">${pc.name}</span> ${pc.status === 'online' ? `(Active Session: <b>${pc.user}</b>)` : '(Standby)'}`;
+            
+        document.getElementById('modalFooter').innerHTML = `<button class="btn-green" onclick="clearCartAndCloseModal()" style="width:100%;">Acknowledged</button>`;
+        document.getElementById('customModal').classList.add('show');
+    }
+
+    function clearCartAndCloseModal() {
+        cafeCart = [];
+        updateCartVisuals();
+        document.getElementById('deliveryTargetPC').value = "";
+        tutupModal();
+        document.querySelector('.nav-tab').click(); // Switch view safely to monitor grid dashboard 
+    }
+
     // --- POPUP MENU INTERCHANGES ---
     function toggleMenu(pcId, event) {
         event.stopPropagation(); 
@@ -510,7 +703,7 @@
         currentModalAction = "";
     }
 
-    // --- DYNAMIC CUSTOM MODALS CONTROL ---
+    // --- MODAL ENGINE DIALOGS ---
     function bukaModalDatabase(index, action) {
         memberTargetIndex = index;
         currentModalAction = action;
@@ -701,7 +894,6 @@
         document.getElementById("jamBilling").value = "";
         renderApp();
         
-        // Auto switch back to Dashboard Tab after successful activation
         document.querySelector('.nav-tab').click();
     }
 
@@ -713,6 +905,7 @@
                 pc.timeRemaining--; adaYangAktif = true;
                 if(pc.timeRemaining <= 0) {
                     pc.status = 'offline'; pc.user = null; pc.timeRemaining = 0;
+                    renderApp(); // Update station to match deployment
                 }
             }
         });
@@ -732,7 +925,7 @@
         }
     }, 1000); 
 
-    // Initialize View Deployment
+    // Initial Engine Deployment
     renderApp();
 </script>
 
