@@ -30,6 +30,7 @@
             border: 1px solid rgba(255,255,255,0.04); 
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
         }
         .control-group:hover { 
             transform: translateY(-2px); 
@@ -79,6 +80,8 @@
         }
         .btn-green { background: linear-gradient(135deg, #43b581, #3ca374); box-shadow: 0 4px 15px rgba(67, 181, 129, 0.3); }
         .btn-green:hover { box-shadow: 0 6px 20px rgba(67, 181, 129, 0.5); }
+        .btn-orange-modal { background: linear-gradient(135deg, #f5a623, #d28716); box-shadow: 0 4px 15px rgba(245, 166, 35, 0.3); }
+        .btn-orange-modal:hover { box-shadow: 0 6px 20px rgba(245, 166, 35, 0.5); }
 
         /* Database Visual List */
         .db-list { 
@@ -89,14 +92,16 @@
         .db-list li { 
             padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.03); 
             display: flex; justify-content: space-between; align-items: center; 
-            border-radius: 6px; transition: background 0.2s;
+            border-radius: 6px; transition: background 0.2s; position: relative;
         }
         .db-list li:hover { background: rgba(255,255,255,0.05); }
         .db-list li:last-child { border-bottom: none; }
+        .db-list li.banned-user span b { color: #ed4245; text-decoration: line-through; opacity: 0.6; }
         
-        .badge-group { display: flex; gap: 6px; align-items: center; }
+        .badge-group { display: flex; gap: 6px; align-items: center; margin-right: 25px; }
         .badge { background: #7289da; color: white; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;}
         .badge.vip-tier { background: linear-gradient(90deg, #f6d365, #fda085); color: #111; box-shadow: 0 2px 5px rgba(245, 166, 35, 0.3); }
+        .badge.banned-tier { background: #ed4245; color: white; box-shadow: 0 0 8px rgba(237, 66, 69, 0.4); }
         .badge-time { background: #43b581; color: white; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 800; box-shadow: 0 0 8px rgba(67, 181, 129, 0.3); }
 
         /* Grid PC Layout */
@@ -105,7 +110,7 @@
             grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 25px; align-content: start; 
         }
         
-        /* --- PC CARD STYLING (SUPER SMOOTH) --- */
+        /* --- PC CARD STYLING --- */
         .pc-card { 
             background: rgba(30, 33, 40, 0.4); 
             backdrop-filter: blur(8px);
@@ -121,7 +126,6 @@
             background: rgba(40, 45, 55, 0.6);
         }
         
-        /* Active (Online) PC Styling */
         .pc-card.online { 
             background: rgba(44, 60, 95, 0.6); 
             border-color: rgba(88, 101, 242, 0.5); box-shadow: 0 0 25px rgba(88, 101, 242, 0.15); 
@@ -168,7 +172,7 @@
         .online .pc-footer { color: #7289da; }
         .vip.online .pc-footer { color: #f5a623; }
 
-        /* --- FITUR KEBAB MENU (Titik Tiga) --- */
+        /* --- FITUR KEBAB MENU --- */
         .menu-dots { cursor: pointer; padding: 2px 8px; font-size: 18px; line-height: 1; border-radius: 6px; transition: background 0.2s; user-select: none; }
         .menu-dots:hover { background: rgba(255,255,255,0.1); color: white; }
         
@@ -186,6 +190,27 @@
         .btn-logout-menu:hover { background: rgba(67, 181, 129, 0.1); }
         .btn-force-menu { color: #ed4245; }
         .btn-force-menu:hover { background: rgba(237, 66, 69, 0.1); }
+        
+        /* --- KEBAB MENU UNTUK DATABASE LIST --- */
+        .member-dots { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 16px; padding: 2px 6px; border-radius: 4px; color: #a1a4a9; }
+        .member-dots:hover { background: rgba(255,255,255,0.1); color: white; }
+        
+        .db-action-menu {
+            display: none; position: absolute; top: 35px; right: 5px;
+            background: rgba(20, 22, 27, 0.98); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+            z-index: 150; box-shadow: 0 10px 25px rgba(0,0,0,0.5); overflow: hidden; min-width: 130px;
+        }
+        .db-action-menu.show { display: block; animation: menuFadeIn 0.15s ease-out; }
+        .db-action-menu button { background: transparent; padding: 10px 14px; border: none; border-bottom: 1px solid rgba(255,255,255,0.03); cursor: pointer; text-align: left; width: 100%; font-weight: 600; font-size: 12px; }
+        .db-action-menu button:last-child { border-bottom: none; }
+        
+        .btn-ban { color: #f5a623; }
+        .btn-ban:hover { background: rgba(245, 166, 35, 0.1); }
+        .btn-unban { color: #43b581; }
+        .btn-unban:hover { background: rgba(67, 181, 129, 0.1); }
+        .btn-delete { color: #ed4245; }
+        .btn-delete:hover { background: rgba(237, 66, 69, 0.1); }
 
         @keyframes menuFadeIn { from { opacity: 0; transform: scale(0.9) translateY(-10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
@@ -265,12 +290,9 @@
 
     <div class="modal-overlay" id="customModal">
         <div class="modal-box">
-            <div class="modal-header" id="modalHeader">
-                </div>
-            <div class="modal-body" id="modalMessage">
-                </div>
-            <div class="modal-footer" id="modalFooter">
-                </div>
+            <div class="modal-header" id="modalHeader"></div>
+            <div class="modal-body" id="modalMessage"></div>
+            <div class="modal-footer" id="modalFooter"></div>
         </div>
     </div>
 
@@ -278,6 +300,8 @@
     let members = JSON.parse(localStorage.getItem('dbMembers')) || [];
     let pcs = [];
     let pcTargetId = null; 
+    let memberTargetIndex = null; // Track index member untuk operasi database modal
+    let currentModalAction = ""; // Track aksi modal database ('BAN', 'UNBAN', 'DELETE')
     
     // Inisialisasi 24 PC
     for(let i = 1; i <= 24; i++) {
@@ -305,8 +329,10 @@
         if(members.length === 0) {
             listVisual.innerHTML = '<li style="color:#6b6f77; justify-content:center;"><i>No members registered yet</i></li>';
         } else {
-            members.forEach(m => {
-                selectMember.innerHTML += `<option value="${m.nama}">${m.nama}</option>`;
+            members.forEach((m, index) => {
+                if (m.status !== 'BANNED') {
+                    selectMember.innerHTML += `<option value="${m.nama}">${m.nama}</option>`;
+                }
                 
                 let sisaDetik = m.sisaWaktu || 0;
                 let badgeTimeHTML = '';
@@ -317,20 +343,33 @@
                     badgeTimeHTML = `<span class="badge-time" title="Saved Time">⏳ ${h}H ${mnt}M</span>`;
                 }
 
-                // Tentukan Tipe Badge (REGULAR atau VIP)
                 let tipeBadgeHTML = '';
-                if (m.tipe === 'VIP') {
+                let isBannedClass = '';
+                
+                if (m.status === 'BANNED') {
+                    tipeBadgeHTML = `<span class="badge banned-tier">BANNED</span>`;
+                    isBannedClass = 'banned-user';
+                } else if (m.tipe === 'VIP') {
                     tipeBadgeHTML = `<span class="badge vip-tier">VIP</span>`;
                 } else {
                     tipeBadgeHTML = `<span class="badge">REGULAR</span>`;
                 }
 
+                let actionButtonsHTML = m.status === 'BANNED' ? 
+                    `<button class="btn-unban" onclick="bukaModalDatabase(${index}, 'UNBAN')">✅ Unban Account</button>` :
+                    `<button class="btn-ban" onclick="bukaModalDatabase(${index}, 'BAN')">⛔ Ban Account</button>`;
+
                 listVisual.innerHTML += `
-                    <li>
+                    <li class="${isBannedClass}">
                         <span>👤 <b style="letter-spacing:0.5px;">${m.nama}</b></span> 
                         <div class="badge-group">
                             ${badgeTimeHTML}
                             ${tipeBadgeHTML}
+                        </div>
+                        <div class="member-dots" onclick="toggleDatabaseMenu(${index}, event)">⋮</div>
+                        <div class="db-action-menu" id="db-menu-${index}">
+                            ${actionButtonsHTML}
+                            <button class="btn-delete" onclick="bukaModalDatabase(${index}, 'DELETE')">🗑️ Delete Account</button>
                         </div>
                     </li>`;
             });
@@ -355,7 +394,6 @@
             let formattedTime = `${h}H ${m.toString().padStart(2, '0')}M ${s.toString().padStart(2, '0')}S`;
             let timeString = pc.status === 'online' ? formattedTime : 'AVAILABLE';
             
-            // PC 1 sampai 5 adalah VIP
             let isVip = (pc.id <= 5);
             let vipClass = isVip ? 'vip' : '';
             let vipBadge = isVip ? '<span class="vip-badge">VIP</span>' : '';
@@ -389,36 +427,111 @@
         });
     }
 
-    // --- FUNGSI MENU & MODAL ---
+    // --- FUNGSI MENU INTERAKTIF ---
     function toggleMenu(pcId, event) {
         event.stopPropagation(); 
+        document.querySelectorAll('.db-action-menu').forEach(m => m.classList.remove('show'));
         document.querySelectorAll('.action-menu').forEach(menu => {
             if(menu.id !== `menu-${pcId}`) menu.classList.remove('show');
         });
         document.getElementById(`menu-${pcId}`).classList.toggle('show');
     }
 
+    function toggleDatabaseMenu(index, event) {
+        event.stopPropagation();
+        document.querySelectorAll('.action-menu').forEach(m => m.classList.remove('show'));
+        document.querySelectorAll('.db-action-menu').forEach(menu => {
+            if(menu.id !== `db-menu-${index}`) menu.classList.remove('show');
+        });
+        document.getElementById(`db-menu-${index}`).classList.toggle('show');
+    }
+
     document.addEventListener('click', () => {
         document.querySelectorAll('.action-menu').forEach(menu => menu.classList.remove('show'));
+        document.querySelectorAll('.db-action-menu').forEach(menu => menu.classList.remove('show'));
     });
 
     function tutupModal() {
         document.getElementById('customModal').classList.remove('show');
         pcTargetId = null; 
+        memberTargetIndex = null;
+        currentModalAction = "";
     }
 
-    // Modal Peringatan Akses Ditolak (Regular -> VIP)
-    function showAccessDeniedModal(userName, pcName) {
-        document.getElementById('modalHeader').innerHTML = `🚫 Access Denied: VIP Exclusive Area`;
+    // --- DYNAMIC CUSTOM MODALS CONTROL ---
+    function bukaModalDatabase(index, action) {
+        memberTargetIndex = index;
+        currentModalAction = action;
+        let member = members[index];
+
+        let header = document.getElementById('modalHeader');
+        let body = document.getElementById('modalMessage');
+        let footer = document.getElementById('modalFooter');
+
+        if (action === 'BAN') {
+            header.innerHTML = `⛔ Ban Account Authorization`;
+            header.style.background = `linear-gradient(135deg, #f5a623, #d28716)`;
+            body.innerHTML = `Are you sure you want to ban <b>${member.nama}</b>?<br><br><span style="font-size:13px; color:#9da0a5;">If the member is active on a PC, their current active session will be forcibly terminated.</span>`;
+            footer.innerHTML = `
+                <button class="btn-gray" onclick="tutupModal()">Cancel</button>
+                <button class="btn-orange-modal" onclick="eksekusiModalDatabase()">Confirm Ban</button>
+            `;
+        } else if (action === 'UNBAN') {
+            header.innerHTML = `✅ Unban Account Authorization`;
+            header.style.background = `linear-gradient(135deg, #43b581, #3ca374)`;
+            body.innerHTML = `Lift network restrictions and restore access for <b>${member.nama}</b>?`;
+            footer.innerHTML = `
+                <button class="btn-gray" onclick="tutupModal()">Cancel</button>
+                <button class="btn-green" onclick="eksekusiModalDatabase()">Grant Access</button>
+            `;
+        } else if (action === 'DELETE') {
+            header.innerHTML = `🗑️ Permanent Account Deletion`;
+            header.style.background = `linear-gradient(135deg, #ed4245, #c9383a)`;
+            body.innerHTML = `Are you absolutely sure you want to delete <b>${member.nama}</b> permanently?<br><br><span style="font-size:13px; color:#ed4245; font-weight:bold;">All saved time bundles and history will be lost forever.</span>`;
+            footer.innerHTML = `
+                <button class="btn-gray" onclick="tutupModal()">Cancel</button>
+                <button class="btn-red-modal" onclick="eksekusiModalDatabase()">Delete Forever</button>
+            `;
+        }
+
+        document.getElementById('customModal').classList.add('show');
+    }
+
+    function eksekusiModalDatabase() {
+        if (memberTargetIndex === null) return;
+        let member = members[memberTargetIndex];
+
+        if (currentModalAction === 'BAN') {
+            member.status = 'BANNED';
+            let activePC = pcs.find(p => p.user === member.nama);
+            if (activePC) {
+                activePC.status = 'offline';
+                activePC.user = null;
+                activePC.timeRemaining = 0;
+            }
+        } else if (currentModalAction === 'UNBAN') {
+            member.status = 'ACTIVE';
+        } else if (currentModalAction === 'DELETE') {
+            let activePC = pcs.find(p => p.user === member.nama);
+            if (activePC) {
+                activePC.status = 'offline';
+                activePC.user = null;
+                activePC.timeRemaining = 0;
+            }
+            members.splice(memberTargetIndex, 1);
+        }
+
+        localStorage.setItem('dbMembers', JSON.stringify(members));
+        renderApp();
+        tutupModal();
+    }
+
+    function showAccessDeniedModal(userName, pcName, customMsg = "") {
+        document.getElementById('modalHeader').innerHTML = `🚫 Access Denied`;
         document.getElementById('modalHeader').style.background = `linear-gradient(135deg, #ed4245, #c9383a)`;
-        
-        let pesan = `User <b>${userName}</b> holds a Standard/Regular membership and is restricted from accessing the VIP Lounge (<span style="color:#f5a623; font-weight:bold;">${pcName}</span>).<br><br><span style="font-size:13px; color:#9da0a5;">Please allocate a Regular PC (PC-06 to PC-24) or upgrade their membership tier.</span>`;
+        let pesan = customMsg ? customMsg : `User <b>${userName}</b> holds a Standard/Regular membership and is restricted from accessing the VIP Lounge (<span style="color:#f5a623; font-weight:bold;">${pcName}</span>).<br><br><span style="font-size:13px; color:#9da0a5;">Please allocate a Regular PC (PC-06 to PC-24) or upgrade their membership tier.</span>`;
         document.getElementById('modalMessage').innerHTML = pesan;
-
-        document.getElementById('modalFooter').innerHTML = `
-            <button class="btn-gray" onclick="tutupModal()" style="width:100%; border:none; padding:12px; border-radius:10px; color:white; font-weight:bold; cursor:pointer;">Acknowledge</button>
-        `;
-
+        document.getElementById('modalFooter').innerHTML = `<button class="btn-gray" onclick="tutupModal()" style="width:100%;">Acknowledge</button>`;
         document.getElementById('customModal').classList.add('show');
     }
 
@@ -427,18 +540,13 @@
         if (pc.status === 'offline') return alert("This PC is already offline.");
 
         pcTargetId = pcId; 
-        
         document.getElementById('modalHeader').innerHTML = `⚠️ Terminate Warning`;
         document.getElementById('modalHeader').style.background = `linear-gradient(135deg, #ed4245, #c9383a)`;
-        
-        let pesan = `Are you sure you want to terminate <b>${pc.user}</b>'s session on <span style="color:#ed4245; font-weight:bold;">${pc.name}</span>?<br><br><span style="font-size:13px; color:#9da0a5;">Remaining time will be deleted permanently.</span>`;
-        document.getElementById('modalMessage').innerHTML = pesan;
-
+        document.getElementById('modalMessage').innerHTML = `Are you sure you want to terminate <b>${pc.user}</b>'s session on <span style="color:#ed4245; font-weight:bold;">${pc.name}</span>?<br><br><span style="font-size:13px; color:#9da0a5;">Remaining time will be deleted permanently.</span>`;
         document.getElementById('modalFooter').innerHTML = `
             <button class="btn-gray" onclick="tutupModal()">Cancel</button>
-            <button class="btn-red-modal" onclick="eksekusiForceClose()" style="width:100%; padding:12px; border:none; border-radius:10px; color:white; font-weight:bold; cursor:pointer;">Terminate</button>
+            <button class="btn-red-modal" onclick="eksekusiForceClose()">Terminate</button>
         `;
-
         document.getElementById('customModal').classList.add('show');
     }
 
@@ -447,7 +555,6 @@
         if (pc.status === 'offline') return alert("This PC is already offline.");
 
         pcTargetId = pcId; 
-        
         document.getElementById('modalHeader').innerHTML = `💾 Save Session`;
         document.getElementById('modalHeader').style.background = `linear-gradient(135deg, #43b581, #3ca374)`;
         
@@ -459,14 +566,11 @@
             let m = Math.floor((pc.timeRemaining % 3600) / 60);
             pesan = `Logout <b>${pc.user}</b> from <span>${pc.name}</span>?<br><br><span style="font-size:13px; color:#43b581; font-weight:bold;">Remaining time (⏳ ${h}H ${m}M) will be saved to database.</span>`;
         }
-        
         document.getElementById('modalMessage').innerHTML = pesan;
-
         document.getElementById('modalFooter').innerHTML = `
             <button class="btn-gray" onclick="tutupModal()">Cancel</button>
             <button class="btn-green" onclick="eksekusiLogout()">Confirm Logout</button>
         `;
-
         document.getElementById('customModal').classList.add('show');
     }
 
@@ -481,10 +585,10 @@
         }
     }
 
+    /* Eksekusi Log Out (Simpan ke DB) */
     function eksekusiLogout() {
         if (pcTargetId !== null) {
             let pc = pcs.find(p => p.id === pcTargetId);
-            
             if(pc.user !== 'GUEST / PUBLIC') {
                 let memberIndex = members.findIndex(m => m.nama === pc.user);
                 if(memberIndex !== -1) {
@@ -492,7 +596,6 @@
                     localStorage.setItem('dbMembers', JSON.stringify(members));
                 }
             }
-
             pc.status = 'offline';
             pc.user = null;
             pc.timeRemaining = 0; 
@@ -501,7 +604,7 @@
         }
     }
 
-    // --- FUNGSI UTAMA ---
+    // --- FUNGSI PROSES INPUT UTAMA ---
     function buatMember() {
         let nama = document.getElementById("namaMember").value.trim().toUpperCase();
         let pass = document.getElementById("passMember").value;
@@ -510,14 +613,12 @@
         if(!nama || !pass) return alert("Username and Password are required!");
         if(members.find(m => m.nama === nama)) return alert("Error: Username already exists in database!");
 
-        // Simpan data beserta tipe member (REGULAR / VIP)
-        members.push({ nama: nama, password: pass, sisaWaktu: 0, tipe: tipe });
+        members.push({ nama: nama, password: pass, sisaWaktu: 0, tipe: tipe, status: 'ACTIVE' });
         localStorage.setItem('dbMembers', JSON.stringify(members));
         
         document.getElementById("namaMember").value = "";
         document.getElementById("passMember").value = "";
         document.getElementById("tipeMember").value = "REGULAR";
-        
         renderApp(); 
     }
 
@@ -528,39 +629,36 @@
         
         let pc = pcs.find(p => p.id === pcId);
 
-        // 1. Validasi Status PC
         if (pc.status === 'online' && pc.user !== userName) {
             return alert("This PC is currently in use by another user!");
         }
 
-        // 2. Validasi Hak Akses VIP
-        let isVipPC = (pcId <= 5);
         let memberData = members.find(m => m.nama === userName);
+        if (memberData && memberData.status === 'BANNED') {
+            showAccessDeniedModal(userName, pc.name, `Access Blocked: Account <b>${userName}</b> is currently BANNED from Derhan123 network.`);
+            return;
+        }
 
+        let isVipPC = (pcId <= 5);
         if (isVipPC) {
-            // Cek apakah member VIP. (Guest otomatis false)
             let isVipMember = (memberData && memberData.tipe === 'VIP');
-            
             if (!isVipMember) {
                 showAccessDeniedModal(userName, pc.name);
-                return; // Batalkan aktivasi
+                return; 
             }
         }
 
-        // 3. Kalkulasi & Validasi Waktu
         let jam = parseFloat(jamInput) || 0;
         let waktuBaru = Math.floor(jam * 3600);
         let sisaWaktuDB = memberData ? (memberData.sisaWaktu || 0) : 0;
-        
         let totalWaktu = waktuBaru + sisaWaktuDB;
 
         if(totalWaktu <= 0) {
             return alert("Please enter valid duration or select a member with saved time.");
         }
 
-        // Jika semua lolos validasi, terapkan ke sistem:
         if (memberData) {
-            memberData.sisaWaktu = 0; // Kuras tabungan waktu dari database
+            memberData.sisaWaktu = 0; 
             localStorage.setItem('dbMembers', JSON.stringify(members));
         }
 
@@ -572,7 +670,7 @@
         renderApp();
     }
 
-    // --- TIMER GLOBAL ---
+    // --- TIMER GLOBAL REAL-TIME ---
     setInterval(() => {
         let adaYangAktif = false;
         
@@ -604,7 +702,6 @@
         }
     }, 1000); 
 
-    // Render pertama kali
     renderApp();
 </script>
 
