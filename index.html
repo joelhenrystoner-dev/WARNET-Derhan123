@@ -1,124 +1,611 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Operator Warnet Derhan123</title>
+    <title>Derhan123 Elite Cybercafe - Smart Billing System</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; margin: 0; padding: 20px; }
-        .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        h2 { text-align: center; color: #333; }
-        .box { background: #e9ecef; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
-        input { width: 90%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
-        button { width: 100%; padding: 10px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        button:hover { background-color: #218838; }
-        .btn-blue { background-color: #007bff; }
-        .btn-blue:hover { background-color: #0056b3; }
-        ul { list-style-type: none; padding: 0; }
-        li { background: #fff; padding: 10px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; }
+        /* CSS Reset & Basic Setup */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        /* Background Super Smooth & Modern */
+        body { 
+            background: radial-gradient(circle at top center, #1a1c23 0%, #08090b 100%); 
+            background-attachment: fixed;
+            color: #dcddde; display: flex; flex-direction: column; height: 100vh; overflow: hidden; 
+        }
+        
+        /* --- HEADER & CONTROL PANEL (ULTRA MODERN) --- */
+        .header { 
+            background: rgba(22, 24, 29, 0.7); 
+            backdrop-filter: blur(16px);
+            padding: 20px 30px; display: flex; gap: 25px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6); z-index: 10; flex-wrap: wrap; 
+            border-bottom: 1px solid rgba(255,255,255,0.03); 
+        }
+        
+        .control-group { 
+            background: linear-gradient(145deg, rgba(35, 38, 45, 0.4), rgba(25, 28, 33, 0.6));
+            padding: 20px; border-radius: 16px; flex: 1; min-width: 280px; 
+            border: 1px solid rgba(255,255,255,0.04); 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .control-group:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4); 
+            border-color: rgba(114, 137, 218, 0.2);
+        }
+        
+        .control-group h3 { 
+            margin-bottom: 18px; font-size: 13px; color: #7289da; 
+            border-bottom: 1px solid rgba(114, 137, 218, 0.15); padding-bottom: 10px; 
+            text-transform: uppercase; letter-spacing: 1.5px; font-weight: 800;
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        /* Input & Select Premium Styling */
+        .input-wrapper {
+            position: relative;
+            margin-bottom: 15px;
+        }
+        input, select { 
+            width: 100%; padding: 12px 15px;
+            background-color: rgba(15, 17, 20, 0.6); 
+            border: 1px solid rgba(255,255,255,0.08); 
+            color: #fff; border-radius: 10px; font-size: 14px; outline: none; 
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+        }
+        input::placeholder { color: #6b6f77; font-weight: 500; }
+        input:focus, select:focus { 
+            border-color: #7289da; background-color: rgba(20, 22, 27, 0.9);
+            box-shadow: 0 0 0 3px rgba(114, 137, 218, 0.2); 
+        }
+        select { appearance: none; cursor: pointer; }
+        
+        /* Button Styles */
+        button { 
+            width: 100%; padding: 12px; background: linear-gradient(135deg, #7289da, #5b6eae); 
+            color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: 800; 
+            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); letter-spacing: 0.8px; 
+            text-transform: uppercase; font-size: 12px;
+            box-shadow: 0 4px 15px rgba(114, 137, 218, 0.3);
+        }
+        button:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(114, 137, 218, 0.5); 
+            filter: brightness(1.1);
+        }
+        .btn-green { background: linear-gradient(135deg, #43b581, #3ca374); box-shadow: 0 4px 15px rgba(67, 181, 129, 0.3); }
+        .btn-green:hover { box-shadow: 0 6px 20px rgba(67, 181, 129, 0.5); }
+
+        /* Database Visual List */
+        .db-list { 
+            list-style: none; background: rgba(15, 17, 20, 0.4); padding: 10px; 
+            border-radius: 10px; max-height: 180px; overflow-y: auto; font-size: 13px; 
+            border: 1px solid rgba(255,255,255,0.03); 
+        }
+        .db-list li { 
+            padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.03); 
+            display: flex; justify-content: space-between; align-items: center; 
+            border-radius: 6px; transition: background 0.2s;
+        }
+        .db-list li:hover { background: rgba(255,255,255,0.05); }
+        .db-list li:last-child { border-bottom: none; }
+        
+        .badge-group { display: flex; gap: 6px; align-items: center; }
+        .badge { background: #7289da; color: white; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;}
+        .badge.vip-tier { background: linear-gradient(90deg, #f6d365, #fda085); color: #111; box-shadow: 0 2px 5px rgba(245, 166, 35, 0.3); }
+        .badge-time { background: #43b581; color: white; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 800; box-shadow: 0 0 8px rgba(67, 181, 129, 0.3); }
+
+        /* Grid PC Layout */
+        .grid-container { 
+            flex: 1; padding: 30px; overflow-y: auto; display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 25px; align-content: start; 
+        }
+        
+        /* --- PC CARD STYLING (SUPER SMOOTH) --- */
+        .pc-card { 
+            background: rgba(30, 33, 40, 0.4); 
+            backdrop-filter: blur(8px);
+            border-radius: 16px; padding: 20px; height: 150px; display: flex; flex-direction: column; justify-content: space-between; 
+            border: 1px solid rgba(255,255,255,0.06); position: relative; 
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15); 
+        }
+        .pc-card:hover { 
+            transform: translateY(-6px) scale(1.02); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4); 
+            border-color: rgba(255,255,255,0.15); 
+            background: rgba(40, 45, 55, 0.6);
+        }
+        
+        /* Active (Online) PC Styling */
+        .pc-card.online { 
+            background: rgba(44, 60, 95, 0.6); 
+            border-color: rgba(88, 101, 242, 0.5); box-shadow: 0 0 25px rgba(88, 101, 242, 0.15); 
+        }
+        .pc-card.online:hover {
+            box-shadow: 0 10px 40px rgba(88, 101, 242, 0.3); 
+            border-color: rgba(88, 101, 242, 0.8);
+        }
+
+        /* --- VIP CARD STYLING (PC 1 - 5) --- */
+        .pc-card.vip {
+            background: linear-gradient(135deg, rgba(60, 45, 20, 0.4), rgba(30, 25, 15, 0.6));
+            border-color: rgba(245, 166, 35, 0.2);
+        }
+        .pc-card.vip:hover {
+            border-color: rgba(245, 166, 35, 0.6);
+            box-shadow: 0 15px 35px rgba(245, 166, 35, 0.1);
+        }
+        .pc-card.vip.online {
+            background: linear-gradient(135deg, rgba(100, 70, 25, 0.6), rgba(50, 35, 15, 0.7));
+            border-color: rgba(245, 166, 35, 0.8);
+            box-shadow: 0 0 30px rgba(245, 166, 35, 0.2);
+        }
+        .vip-badge {
+            background: linear-gradient(90deg, #f6d365, #fda085);
+            color: #111; padding: 2px 8px; border-radius: 12px; font-size: 9px; font-weight: 900;
+            margin-left: 8px; letter-spacing: 0.5px; text-transform: uppercase;
+            box-shadow: 0 2px 5px rgba(245, 166, 35, 0.3);
+        }
+        
+        .pc-header { display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: #a1a4a9; font-weight: 800; letter-spacing: 0.5px;}
+        .online .pc-header { color: #fff; }
+        
+        .status-indicator { display: flex; align-items: center; gap: 8px; }
+        .status-icon { width: 10px; height: 10px; border-radius: 50%; background-color: #ed4245; box-shadow: 0 0 10px #ed4245; } 
+        .online .status-icon { background-color: #43b581; box-shadow: 0 0 12px #43b581; } 
+
+        .pc-body { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin-top: 5px; }
+        .pc-user { font-size: 19px; font-weight: 900; color: white; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; letter-spacing: 1px; }
+        .pc-time { font-size: 16px; color: #43b581; font-weight: 800; margin-top: 8px; background: rgba(0,0,0,0.4); padding: 5px 15px; border-radius: 8px; letter-spacing: 0.5px;}
+        .vip.online .pc-time { color: #f5a623; } 
+        
+        .pc-footer { font-size: 10px; color: #72767d; text-align: center; margin-top: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;}
+        .online .pc-footer { color: #7289da; }
+        .vip.online .pc-footer { color: #f5a623; }
+
+        /* --- FITUR KEBAB MENU (Titik Tiga) --- */
+        .menu-dots { cursor: pointer; padding: 2px 8px; font-size: 18px; line-height: 1; border-radius: 6px; transition: background 0.2s; user-select: none; }
+        .menu-dots:hover { background: rgba(255,255,255,0.1); color: white; }
+        
+        .action-menu { 
+            display: none; position: absolute; top: 45px; right: 15px; 
+            background: rgba(20, 22, 27, 0.95); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; 
+            z-index: 100; box-shadow: 0 15px 35px rgba(0,0,0,0.5); overflow: hidden; min-width: 160px; 
+        }
+        .action-menu.show { display: block; animation: menuFadeIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .action-menu button { background: transparent; padding: 14px 18px; border: none; border-bottom: 1px solid rgba(255,255,255,0.03); cursor: pointer; text-align: left; width: 100%; font-weight: 700; font-size: 13px; transition: background 0.2s;}
+        .action-menu button:last-child { border-bottom: none; }
+        
+        .btn-logout-menu { color: #43b581; }
+        .btn-logout-menu:hover { background: rgba(67, 181, 129, 0.1); }
+        .btn-force-menu { color: #ed4245; }
+        .btn-force-menu:hover { background: rgba(237, 66, 69, 0.1); }
+
+        @keyframes menuFadeIn { from { opacity: 0; transform: scale(0.9) translateY(-10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+        /* --- CUSTOM MODAL POP-UP --- */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px); z-index: 1000;
+            justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .modal-overlay.show { display: flex; opacity: 1; }
+        
+        .modal-box {
+            background: rgba(25, 28, 33, 0.95); backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; width: 400px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            transform: scale(0.95) translateY(20px); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+        }
+        .modal-overlay.show .modal-box { transform: scale(1) translateY(0); }
+
+        .modal-header {
+            color: white; padding: 20px 25px; font-size: 16px; font-weight: 800; text-align: center;
+            display: flex; justify-content: center; align-items: center; gap: 10px; letter-spacing: 0.5px;
+        }
+        .modal-body { padding: 35px 25px; text-align: center; font-size: 15px; color: #dcddde; line-height: 1.6; }
+        .modal-footer { display: flex; padding: 20px 25px; gap: 15px; background: rgba(15, 17, 20, 0.6); border-top: 1px solid rgba(255,255,255,0.05); }
+        
+        .btn-gray { background: #4f545c; }
+        .btn-gray:hover { background: #686d73; box-shadow: none; }
+        .btn-red-modal { background: #ed4245; }
+        .btn-red-modal:hover { background: #c9383a; box-shadow: 0 4px 15px rgba(237, 66, 69, 0.4); }
+
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>Simulasi Operator Warnet Derhan123</h2>
+    <div class="header">
+        <div class="control-group">
+            <h3>✦ New Member Registration</h3>
+            <div class="input-wrapper">
+                <input type="text" id="namaMember" placeholder="Enter Username">
+            </div>
+            <div class="input-wrapper">
+                <input type="password" id="passMember" placeholder="Create Password">
+            </div>
+            <div class="input-wrapper">
+                <select id="tipeMember">
+                    <option value="REGULAR">Regular Member</option>
+                    <option value="VIP">VIP Member</option>
+                </select>
+            </div>
+            <button onclick="buatMember()">Register to System</button>
+        </div>
 
-    <!-- Bagian Pendaftaran Member -->
-    <div class="box">
-        <h3>1. Buat Member Baru</h3>
-        <input type="text" id="namaMember" placeholder="Nama Username">
-        <input type="password" id="passMember" placeholder="Password">
-        <button onclick="buatMember()">Simpan ke Database</button>
+        <div class="control-group">
+            <h3>✦ Active Database</h3>
+            <ul class="db-list" id="listMemberVisual"></ul>
+        </div>
+
+        <div class="control-group">
+            <h3>✦ PC Allocation & Billing</h3>
+            <div class="input-wrapper">
+                <select id="pilihPC"></select>
+            </div>
+            <div class="input-wrapper">
+                <select id="pilihMember"></select>
+            </div>
+            <div class="input-wrapper">
+                <input type="number" id="jamBilling" placeholder="Duration (Hours) - Leave blank if using saved time">
+            </div>
+            <button class="btn-green" onclick="aktifkanPC()">Confirm Session</button>
+        </div>
     </div>
 
-    <!-- Bagian Isi Billing -->
-    <div class="box">
-        <h3>2. Isi Billing Member</h3>
-        <input type="text" id="namaBilling" placeholder="Nama Username Member">
-        <input type="number" id="jamBilling" placeholder="Jumlah Waktu (Jam)">
-        <button class="btn-blue" onclick="isiBilling()">Tambahkan Billing</button>
-    </div>
+    <div class="grid-container" id="pcGrid">
+        </div>
 
-    <!-- Tampilan Database -->
-    <div class="box">
-        <h3>Database Member Aktif</h3>
-        <ul id="listDatabase"></ul>
+    <div class="modal-overlay" id="customModal">
+        <div class="modal-box">
+            <div class="modal-header" id="modalHeader">
+                </div>
+            <div class="modal-body" id="modalMessage">
+                </div>
+            <div class="modal-footer" id="modalFooter">
+                </div>
+        </div>
     </div>
-</div>
 
 <script>
-    // Mengambil data dari LocalStorage (Simulasi Database)
-    let database = JSON.parse(localStorage.getItem('dbWarnet')) || [];
-
-    // Fungsi untuk membuat member baru
-    function buatMember() {
-        let nama = document.getElementById("namaMember").value;
-        let pass = document.getElementById("passMember").value;
-
-        if(nama === "" || pass === "") {
-            alert("Nama dan Password tidak boleh kosong!");
-            return;
-        }
-
-        // Cek apakah nama sudah ada
-        let cekData = database.find(member => member.nama === nama);
-        if(cekData) {
-            alert("Username sudah terdaftar! Gunakan nama lain.");
-            return;
-        }
-
-        // Simpan ke array
-        database.push({ nama: nama, password: pass, billing_jam: 0 });
-        
-        // Simpan ke LocalStorage
-        localStorage.setItem('dbWarnet', JSON.stringify(database));
-        
-        alert("Member " + nama + " berhasil dibuat!");
-        document.getElementById("namaMember").value = "";
-        document.getElementById("passMember").value = "";
-        tampilkanDatabase();
-    }
-
-    // Fungsi untuk mengisi billing
-    function isiBilling() {
-        let nama = document.getElementById("namaBilling").value;
-        let jam = parseInt(document.getElementById("jamBilling").value);
-
-        if(nama === "" || isNaN(jam) || jam <= 0) {
-            alert("Masukkan nama dan jumlah jam yang benar!");
-            return;
-        }
-
-        // Cari member di database
-        let index = database.findIndex(member => member.nama === nama);
-
-        if(index !== -1) {
-            database[index].billing_jam += jam; // Tambah billing
-            localStorage.setItem('dbWarnet', JSON.stringify(database)); // Update LocalStorage
-            
-            alert("Berhasil mengisi " + jam + " Jam untuk member: " + nama);
-            document.getElementById("namaBilling").value = "";
-            document.getElementById("jamBilling").value = "";
-            tampilkanDatabase();
-        } else {
-            alert("Member tidak ditemukan di database!");
-        }
-    }
-
-    // Fungsi untuk menampilkan data ke layar
-    function tampilkanDatabase() {
-        let list = document.getElementById("listDatabase");
-        list.innerHTML = ""; // Bersihkan list sebelum update
-
-        database.forEach(member => {
-            let li = document.createElement("li");
-            li.innerHTML = `<span>👤 <b>${member.nama}</b></span> <span>⏳ ${member.billing_jam} Jam</span>`;
-            list.appendChild(li);
+    let members = JSON.parse(localStorage.getItem('dbMembers')) || [];
+    let pcs = [];
+    let pcTargetId = null; 
+    
+    // Inisialisasi 24 PC
+    for(let i = 1; i <= 24; i++) {
+        pcs.push({
+            id: i,
+            name: `PC-${i.toString().padStart(2, '0')}`,
+            status: 'offline', 
+            user: null,
+            timeRemaining: 0 
         });
     }
 
-    // Tampilkan database saat pertama kali aplikasi dibuka
-    tampilkanDatabase();
+    function renderApp() {
+        renderMembers();
+        renderPCs();
+    }
+
+    function renderMembers() {
+        let selectMember = document.getElementById('pilihMember');
+        let listVisual = document.getElementById('listMemberVisual');
+        
+        selectMember.innerHTML = '<option value="GUEST / PUBLIC">GUEST / PUBLIC</option>';
+        listVisual.innerHTML = '';
+
+        if(members.length === 0) {
+            listVisual.innerHTML = '<li style="color:#6b6f77; justify-content:center;"><i>No members registered yet</i></li>';
+        } else {
+            members.forEach(m => {
+                selectMember.innerHTML += `<option value="${m.nama}">${m.nama}</option>`;
+                
+                let sisaDetik = m.sisaWaktu || 0;
+                let badgeTimeHTML = '';
+                
+                if (sisaDetik > 0) {
+                    let h = Math.floor(sisaDetik / 3600);
+                    let mnt = Math.floor((sisaDetik % 3600) / 60);
+                    badgeTimeHTML = `<span class="badge-time" title="Saved Time">⏳ ${h}H ${mnt}M</span>`;
+                }
+
+                // Tentukan Tipe Badge (REGULAR atau VIP)
+                let tipeBadgeHTML = '';
+                if (m.tipe === 'VIP') {
+                    tipeBadgeHTML = `<span class="badge vip-tier">VIP</span>`;
+                } else {
+                    tipeBadgeHTML = `<span class="badge">REGULAR</span>`;
+                }
+
+                listVisual.innerHTML += `
+                    <li>
+                        <span>👤 <b style="letter-spacing:0.5px;">${m.nama}</b></span> 
+                        <div class="badge-group">
+                            ${badgeTimeHTML}
+                            ${tipeBadgeHTML}
+                        </div>
+                    </li>`;
+            });
+        }
+
+        let selectPC = document.getElementById('pilihPC');
+        selectPC.innerHTML = '';
+        pcs.forEach(pc => {
+            selectPC.innerHTML += `<option value="${pc.id}">${pc.name} ${pc.status === 'online' ? '(IN USE)' : ''}</option>`;
+        });
+    }
+
+    function renderPCs() {
+        let grid = document.getElementById('pcGrid');
+        grid.innerHTML = '';
+
+        pcs.forEach(pc => {
+            let h = Math.floor(pc.timeRemaining / 3600);
+            let m = Math.floor((pc.timeRemaining % 3600) / 60);
+            let s = pc.timeRemaining % 60;
+            
+            let formattedTime = `${h}H ${m.toString().padStart(2, '0')}M ${s.toString().padStart(2, '0')}S`;
+            let timeString = pc.status === 'online' ? formattedTime : 'AVAILABLE';
+            
+            // PC 1 sampai 5 adalah VIP
+            let isVip = (pc.id <= 5);
+            let vipClass = isVip ? 'vip' : '';
+            let vipBadge = isVip ? '<span class="vip-badge">VIP</span>' : '';
+
+            let card = document.createElement('div');
+            card.className = `pc-card ${pc.status} ${vipClass}`;
+            
+            card.innerHTML = `
+                <div class="pc-header">
+                    <div class="status-indicator">
+                        <div class="status-icon" title="${pc.status}"></div>
+                        <span>${pc.name} ${vipBadge}</span>
+                    </div>
+                    <div class="menu-dots" onclick="toggleMenu(${pc.id}, event)">⋮</div>
+                </div>
+                
+                <div class="action-menu" id="menu-${pc.id}">
+                    <button class="btn-logout-menu" onclick="bukaModalLogout(${pc.id})">🚪 Save Session & Logout</button>
+                    <button class="btn-force-menu" onclick="bukaModalForceClose(${pc.id})">🛑 Terminate Session</button>
+                </div>
+
+                <div class="pc-body">
+                    <div class="pc-user">${pc.user ? pc.user : '---'}</div>
+                    ${pc.status === 'online' ? `<div class="pc-time">${timeString}</div>` : ''}
+                </div>
+                <div class="pc-footer">
+                    ${pc.status === 'online' ? 'IN SESSION' : 'STANDBY'}
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    // --- FUNGSI MENU & MODAL ---
+    function toggleMenu(pcId, event) {
+        event.stopPropagation(); 
+        document.querySelectorAll('.action-menu').forEach(menu => {
+            if(menu.id !== `menu-${pcId}`) menu.classList.remove('show');
+        });
+        document.getElementById(`menu-${pcId}`).classList.toggle('show');
+    }
+
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.action-menu').forEach(menu => menu.classList.remove('show'));
+    });
+
+    function tutupModal() {
+        document.getElementById('customModal').classList.remove('show');
+        pcTargetId = null; 
+    }
+
+    // Modal Peringatan Akses Ditolak (Regular -> VIP)
+    function showAccessDeniedModal(userName, pcName) {
+        document.getElementById('modalHeader').innerHTML = `🚫 Access Denied: VIP Exclusive Area`;
+        document.getElementById('modalHeader').style.background = `linear-gradient(135deg, #ed4245, #c9383a)`;
+        
+        let pesan = `User <b>${userName}</b> holds a Standard/Regular membership and is restricted from accessing the VIP Lounge (<span style="color:#f5a623; font-weight:bold;">${pcName}</span>).<br><br><span style="font-size:13px; color:#9da0a5;">Please allocate a Regular PC (PC-06 to PC-24) or upgrade their membership tier.</span>`;
+        document.getElementById('modalMessage').innerHTML = pesan;
+
+        document.getElementById('modalFooter').innerHTML = `
+            <button class="btn-gray" onclick="tutupModal()" style="width:100%; border:none; padding:12px; border-radius:10px; color:white; font-weight:bold; cursor:pointer;">Acknowledge</button>
+        `;
+
+        document.getElementById('customModal').classList.add('show');
+    }
+
+    function bukaModalForceClose(pcId) {
+        let pc = pcs.find(p => p.id === pcId);
+        if (pc.status === 'offline') return alert("This PC is already offline.");
+
+        pcTargetId = pcId; 
+        
+        document.getElementById('modalHeader').innerHTML = `⚠️ Terminate Warning`;
+        document.getElementById('modalHeader').style.background = `linear-gradient(135deg, #ed4245, #c9383a)`;
+        
+        let pesan = `Are you sure you want to terminate <b>${pc.user}</b>'s session on <span style="color:#ed4245; font-weight:bold;">${pc.name}</span>?<br><br><span style="font-size:13px; color:#9da0a5;">Remaining time will be deleted permanently.</span>`;
+        document.getElementById('modalMessage').innerHTML = pesan;
+
+        document.getElementById('modalFooter').innerHTML = `
+            <button class="btn-gray" onclick="tutupModal()">Cancel</button>
+            <button class="btn-red-modal" onclick="eksekusiForceClose()" style="width:100%; padding:12px; border:none; border-radius:10px; color:white; font-weight:bold; cursor:pointer;">Terminate</button>
+        `;
+
+        document.getElementById('customModal').classList.add('show');
+    }
+
+    function bukaModalLogout(pcId) {
+        let pc = pcs.find(p => p.id === pcId);
+        if (pc.status === 'offline') return alert("This PC is already offline.");
+
+        pcTargetId = pcId; 
+        
+        document.getElementById('modalHeader').innerHTML = `💾 Save Session`;
+        document.getElementById('modalHeader').style.background = `linear-gradient(135deg, #43b581, #3ca374)`;
+        
+        let pesan = '';
+        if(pc.user === 'GUEST / PUBLIC') {
+            pesan = `Current session is <b>GUEST / PUBLIC</b>. System cannot save time for non-registered users.<br><br><span style="font-size:13px; color:#ed4245; font-weight:bold;">Logging out will forfeit remaining time.</span>`;
+        } else {
+            let h = Math.floor(pc.timeRemaining / 3600);
+            let m = Math.floor((pc.timeRemaining % 3600) / 60);
+            pesan = `Logout <b>${pc.user}</b> from <span>${pc.name}</span>?<br><br><span style="font-size:13px; color:#43b581; font-weight:bold;">Remaining time (⏳ ${h}H ${m}M) will be saved to database.</span>`;
+        }
+        
+        document.getElementById('modalMessage').innerHTML = pesan;
+
+        document.getElementById('modalFooter').innerHTML = `
+            <button class="btn-gray" onclick="tutupModal()">Cancel</button>
+            <button class="btn-green" onclick="eksekusiLogout()">Confirm Logout</button>
+        `;
+
+        document.getElementById('customModal').classList.add('show');
+    }
+
+    function eksekusiForceClose() {
+        if (pcTargetId !== null) {
+            let pc = pcs.find(p => p.id === pcTargetId);
+            pc.status = 'offline';
+            pc.user = null;
+            pc.timeRemaining = 0; 
+            renderApp(); 
+            tutupModal();
+        }
+    }
+
+    function eksekusiLogout() {
+        if (pcTargetId !== null) {
+            let pc = pcs.find(p => p.id === pcTargetId);
+            
+            if(pc.user !== 'GUEST / PUBLIC') {
+                let memberIndex = members.findIndex(m => m.nama === pc.user);
+                if(memberIndex !== -1) {
+                    members[memberIndex].sisaWaktu = (members[memberIndex].sisaWaktu || 0) + pc.timeRemaining;
+                    localStorage.setItem('dbMembers', JSON.stringify(members));
+                }
+            }
+
+            pc.status = 'offline';
+            pc.user = null;
+            pc.timeRemaining = 0; 
+            renderApp(); 
+            tutupModal();
+        }
+    }
+
+    // --- FUNGSI UTAMA ---
+    function buatMember() {
+        let nama = document.getElementById("namaMember").value.trim().toUpperCase();
+        let pass = document.getElementById("passMember").value;
+        let tipe = document.getElementById("tipeMember").value;
+
+        if(!nama || !pass) return alert("Username and Password are required!");
+        if(members.find(m => m.nama === nama)) return alert("Error: Username already exists in database!");
+
+        // Simpan data beserta tipe member (REGULAR / VIP)
+        members.push({ nama: nama, password: pass, sisaWaktu: 0, tipe: tipe });
+        localStorage.setItem('dbMembers', JSON.stringify(members));
+        
+        document.getElementById("namaMember").value = "";
+        document.getElementById("passMember").value = "";
+        document.getElementById("tipeMember").value = "REGULAR";
+        
+        renderApp(); 
+    }
+
+    function aktifkanPC() {
+        let pcId = parseInt(document.getElementById("pilihPC").value);
+        let userName = document.getElementById("pilihMember").value;
+        let jamInput = document.getElementById("jamBilling").value;
+        
+        let pc = pcs.find(p => p.id === pcId);
+
+        // 1. Validasi Status PC
+        if (pc.status === 'online' && pc.user !== userName) {
+            return alert("This PC is currently in use by another user!");
+        }
+
+        // 2. Validasi Hak Akses VIP
+        let isVipPC = (pcId <= 5);
+        let memberData = members.find(m => m.nama === userName);
+
+        if (isVipPC) {
+            // Cek apakah member VIP. (Guest otomatis false)
+            let isVipMember = (memberData && memberData.tipe === 'VIP');
+            
+            if (!isVipMember) {
+                showAccessDeniedModal(userName, pc.name);
+                return; // Batalkan aktivasi
+            }
+        }
+
+        // 3. Kalkulasi & Validasi Waktu
+        let jam = parseFloat(jamInput) || 0;
+        let waktuBaru = Math.floor(jam * 3600);
+        let sisaWaktuDB = memberData ? (memberData.sisaWaktu || 0) : 0;
+        
+        let totalWaktu = waktuBaru + sisaWaktuDB;
+
+        if(totalWaktu <= 0) {
+            return alert("Please enter valid duration or select a member with saved time.");
+        }
+
+        // Jika semua lolos validasi, terapkan ke sistem:
+        if (memberData) {
+            memberData.sisaWaktu = 0; // Kuras tabungan waktu dari database
+            localStorage.setItem('dbMembers', JSON.stringify(members));
+        }
+
+        pc.status = 'online';
+        pc.user = userName;
+        pc.timeRemaining += totalWaktu; 
+
+        document.getElementById("jamBilling").value = "";
+        renderApp();
+    }
+
+    // --- TIMER GLOBAL ---
+    setInterval(() => {
+        let adaYangAktif = false;
+        
+        pcs.forEach(pc => {
+            if(pc.timeRemaining > 0) {
+                pc.timeRemaining--; 
+                adaYangAktif = true;
+                
+                if(pc.timeRemaining <= 0) {
+                    pc.status = 'offline';
+                    pc.user = null;
+                    pc.timeRemaining = 0;
+                }
+            }
+        });
+
+        if(adaYangAktif) {
+            pcs.forEach(pc => {
+                if(pc.status === 'online') {
+                    let h = Math.floor(pc.timeRemaining / 3600);
+                    let m = Math.floor((pc.timeRemaining % 3600) / 60);
+                    let s = pc.timeRemaining % 60;
+                    let formattedTime = `${h}H ${m.toString().padStart(2, '0')}M ${s.toString().padStart(2, '0')}S`;
+                    
+                    let timeElement = document.querySelectorAll('.pc-card')[pc.id - 1].querySelector('.pc-time');
+                    if(timeElement) timeElement.innerText = formattedTime;
+                }
+            });
+        }
+    }, 1000); 
+
+    // Render pertama kali
+    renderApp();
 </script>
 
 </body>
