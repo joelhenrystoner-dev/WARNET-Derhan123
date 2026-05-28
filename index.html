@@ -14,132 +14,91 @@
             background-attachment: fixed;
             color: #dcddde; display: flex; flex-direction: column; height: 100vh; overflow: hidden; 
         }
-
-        /* --- 🔐 SECURITY APP LOCK GATE OVERLAY --- */
-        .auth-gate-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(8, 9, 11, 0.85);
-            backdrop-filter: blur(25px); /* Full page lock blur effect */
-            z-index: 9999; display: flex; justify-content: center; align-items: center;
-            opacity: 1; transition: opacity 0.4s ease;
-        }
-        .auth-gate-box {
-            background: linear-gradient(145deg, #232730, #181a21);
-            border: 1px solid rgba(114, 137, 218, 0.2);
-            border-radius: 24px; width: 380px; padding: 40px 30px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 30px rgba(114, 137, 218, 0.05);
-            text-align: center;
-            transform: scale(1); transition: transform 0.3s ease;
-        }
-        .auth-gate-box h2 {
-            font-size: 20px; font-weight: 900; letter-spacing: 1.5px; color: #fff;
-            margin-bottom: 8px; text-transform: uppercase;
-        }
-        .auth-gate-box p { font-size: 13px; color: #72767d; margin-bottom: 25px; }
-        .auth-gate-box .error-msg {
-            color: #ed4245; font-size: 13px; font-weight: bold; margin-bottom: 15px;
-            display: none; animation: tabFadeIn 0.3s ease;
-        }
         
         /* --- PREMIUM NAVIGATION BAR --- */
         .navbar {
-            background: rgba(22, 24, 29, 0.85);
-            backdrop-filter: blur(20px);
-            padding: 15px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 4px 25px rgba(0,0,0,0.5);
-            z-index: 20;
+            background: rgba(22, 24, 29, 0.85); backdrop-filter: blur(20px); padding: 15px 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05); box-shadow: 0 4px 25px rgba(0,0,0,0.5); z-index: 20;
         }
         .navbar .brand {
-            font-size: 18px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            background: linear-gradient(90deg, #7289da, #f6d365);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 18px; font-weight: 900; letter-spacing: 1px;
+            background: linear-gradient(90deg, #7289da, #f6d365); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .nav-tabs { display: flex; gap: 10px; }
+        .nav-right-container { display: flex; align-items: center; gap: 20px; }
+        .nav-tabs { display: flex; gap: 10px; position: relative; }
         .nav-tab {
             padding: 10px 20px; background: transparent; color: #b9bbbe; border: none; border-radius: 8px;
             font-size: 13px; font-weight: 700; cursor: pointer; text-transform: uppercase;
-            letter-spacing: 0.5px; transition: all 0.3s ease; box-shadow: none; width: auto;
+            letter-spacing: 0.5px; transition: all 0.3s ease; box-shadow: none; width: auto; position: relative;
         }
         .nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
-        .nav-tab.active {
-            color: #fff; background: #7289da;
-            box-shadow: 0 4px 15px rgba(114, 137, 218, 0.3);
+        .nav-tab.active { color: #fff; background: #7289da; box-shadow: 0 4px 15px rgba(114, 137, 218, 0.3); }
+        
+        /* Tab Main Notification Dot Alert */
+        .tab-notif-dot {
+            position: absolute; top: 2px; right: 2px; width: 10px; height: 10px;
+            background: #f5a623; border-radius: 50%; display: none; box-shadow: 0 0 10px #f5a623;
         }
+        
+        /* Full Screen Shortcut Button */
+        .btn-fullscreen {
+            background: linear-gradient(135deg, #4f545c, #36393f); color: #fff; border: 1px solid rgba(255,255,255,0.1);
+            padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 11px; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.2s ease; width: auto;
+        }
+        .btn-fullscreen:hover { background: #7289da; border-color: #7289da; transform: translateY(-1px); }
 
         /* --- CONTROL PANEL HEADER (TAB LAYOUT) --- */
         .header { padding: 25px 40px 10px 40px; display: flex; z-index: 10; }
-        
-        /* Tab Content System */
         .tab-content { display: none; width: 100%; gap: 25px; }
         .tab-content.active { display: flex; animation: tabFadeIn 0.4s ease-out; }
 
         .control-group { 
             background: linear-gradient(145deg, rgba(35, 38, 45, 0.4), rgba(25, 28, 33, 0.6));
-            padding: 22px; border-radius: 16px; flex: 1; 
-            border: 1px solid rgba(255,255,255,0.04); 
+            padding: 22px; border-radius: 16px; flex: 1; border: 1px solid rgba(255,255,255,0.04); 
             box-shadow: 0 4px 15px rgba(0,0,0,0.2); position: relative;
         }
-        
         .control-group h3 { 
-            margin-bottom: 18px; font-size: 13px; color: #7289da; 
-            border-bottom: 1px solid rgba(114, 137, 218, 0.15); padding-bottom: 10px; 
-            text-transform: uppercase; letter-spacing: 1.5px; font-weight: 800;
+            margin-bottom: 18px; font-size: 13px; color: #7289da; border-bottom: 1px solid rgba(114, 137, 218, 0.15); 
+            padding-bottom: 10px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 800;
         }
 
-        /* Input & Select Premium Styling */
+        /* Inputs & Select Premium Framing */
         .input-wrapper { position: relative; margin-bottom: 15px; }
         input, select { 
-            width: 100%; padding: 12px 15px;
-            background-color: rgba(15, 17, 20, 0.6); 
-            border: 1px solid rgba(255,255,255,0.08); 
-            color: #fff; border-radius: 10px; font-size: 14px; outline: none; 
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            width: 100%; padding: 12px 15px; background-color: rgba(15, 17, 20, 0.6); border: 1px solid rgba(255,255,255,0.08); 
+            color: #fff; border-radius: 10px; font-size: 14px; outline: none; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
         }
         input::placeholder { color: #6b6f77; font-weight: 500; }
-        input:focus, select:focus { 
-            border-color: #7289da; background-color: rgba(20, 22, 27, 0.9);
-            box-shadow: 0 0 0 3px rgba(114, 137, 218, 0.2); 
-        }
+        input:focus, select:focus { border-color: #7289da; background-color: rgba(20, 22, 27, 0.9); box-shadow: 0 0 0 3px rgba(114, 137, 218, 0.2); }
         select { appearance: none; cursor: pointer; }
         
-        /* Button Styles */
+        /* Buttons Theme Layout */
         button { 
-            width: 100%; padding: 12px; background: linear-gradient(135deg, #7289da, #5b6eae); 
-            color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: 800; 
-            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); letter-spacing: 0.8px; 
-            text-transform: uppercase; font-size: 12px;
+            width: 100%; padding: 12px; background: linear-gradient(135deg, #7289da, #5b6eae); color: white; border: none; border-radius: 10px; 
+            cursor: pointer; font-weight: 800; transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1); letter-spacing: 0.8px; text-transform: uppercase; font-size: 12px;
             box-shadow: 0 4px 15px rgba(114, 137, 218, 0.3);
         }
-        button:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 6px 20px rgba(114, 137, 218, 0.5); 
-            filter: brightness(1.1);
-        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(114, 137, 218, 0.5); filter: brightness(1.1); }
         .btn-green { background: linear-gradient(135deg, #43b581, #3ca374); box-shadow: 0 4px 15px rgba(67, 181, 129, 0.3); }
         .btn-green:hover { box-shadow: 0 6px 20px rgba(67, 181, 129, 0.5); }
         .btn-orange-modal { background: linear-gradient(135deg, #f5a623, #d28716); box-shadow: 0 4px 15px rgba(245, 166, 35, 0.3); }
         .btn-orange-modal:hover { box-shadow: 0 6px 20px rgba(245, 166, 35, 0.5); }
         .btn-cart { background: linear-gradient(135deg, #e67e22, #d35400); box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3); }
         .btn-cart:hover { box-shadow: 0 6px 15px rgba(230, 126, 34, 0.5); }
+        .btn-red-close { background: #ed4245 !important; box-shadow: 0 4px 12px rgba(237, 66, 69, 0.3); }
+        .btn-red-close:hover { box-shadow: 0 6px 15px rgba(237, 66, 69, 0.5); }
 
-        /* Database Visual List */
+        /* Lists Visualization Box */
         .db-list { 
-            list-style: none; background: rgba(15, 17, 20, 0.4); padding: 10px; 
-            border-radius: 10px; max-height: 250px; overflow-y: auto; font-size: 13px; 
-            border: 1px solid rgba(255,255,255,0.03); 
+            list-style: none; background: rgba(15, 17, 20, 0.4); padding: 10px; border-radius: 10px; 
+            max-height: 250px; overflow-y: auto; font-size: 13px; border: 1px solid rgba(255,255,255,0.03); 
         }
         .db-list li { 
-            padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.03); 
-            display: flex; justify-content: space-between; align-items: center; 
-            border-radius: 8px; transition: background 0.2s; position: relative;
+            padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.03); display: flex; 
+            justify-content: space-between; align-items: center; border-radius: 8px; transition: background 0.2s; position: relative;
         }
         .db-list li:hover { background: rgba(255,255,255,0.05); }
         .db-list li:last-child { border-bottom: none; }
@@ -165,25 +124,48 @@
         .menu-item-price { font-size: 13px; font-weight: 800; color: #f5a623; margin-bottom: 10px; }
         .menu-item-card button { padding: 6px 12px; font-size: 11px; border-radius: 6px; }
 
-        /* Cart Visual Display */
         .cart-list {
             list-style: none; background: rgba(15, 17, 20, 0.4); border-radius: 10px;
             max-height: 140px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.03); margin-bottom: 15px;
         }
         .cart-list li { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.03); display: flex; justify-content: space-between; font-size: 13px; }
-        .cart-list li:last-child { border-bottom: none; }
         .cart-total-box {
             display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 15px;
             background: rgba(0,0,0,0.2); padding: 10px 12px; border-radius: 8px;
         }
 
-        /* Grid PC Layout */
-        .grid-container { 
-            flex: 1; padding: 20px 40px 30px 40px; overflow-y: auto; display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 25px; align-content: start; 
-        }
+        /* --- 💬 LIVE CHAT HUB PANELS --- */
+        .chat-container { display: flex; height: 350px; background: rgba(15, 17, 20, 0.6); border-radius: 16px; border: 1px solid rgba(255,255,255,0.04); overflow: hidden; width: 100%; }
+        .chat-sidebar { width: 180px; background: rgba(20, 22, 27, 0.5); border-right: 1px solid rgba(255,255,255,0.05); overflow-y: auto; display: flex; flex-direction: column; }
+        .chat-sidebar-item { padding: 12px 15px; font-size: 13px; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.02); cursor: pointer; color: #8e9297; display: flex; justify-content: space-between; align-items: center; transition: background 0.2s;}
+        .chat-sidebar-item:hover { background: rgba(255,255,255,0.03); color: #dcddde; }
+        .chat-sidebar-item.active { background: rgba(114, 137, 218, 0.1); color: #7289da; border-left: 3px solid #7289da; }
+        .chat-notif-dot { width: 8px; height: 8px; background: #f5a623; border-radius: 50%; display: none; box-shadow: 0 0 8px #f5a623; }
         
-        /* --- PC CARD STYLING --- */
+        .chat-main { flex: 1; display: flex; flex-direction: column; background: rgba(24, 25, 28, 0.2); }
+        .chat-area-header { padding: 12px 20px; font-size: 14px; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.04); color: #fff; background: rgba(0,0,0,0.1); }
+        .chat-messages-box { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        
+        /* Chat Bubbles Dynamics */
+        .bubble-msg { max-width: 70%; padding: 10px 14px; border-radius: 14px; font-size: 13.5px; line-height: 1.5; word-wrap: break-word; }
+        .bubble-msg.incoming { background: #36393f; color: #dcddde; align-self: flex-start; border-bottom-left-radius: 3px; }
+        .bubble-msg.outgoing { background: #7289da; color: #fff; align-self: flex-end; border-bottom-right-radius: 3px; box-shadow: 0 2px 8px rgba(114, 137, 218, 0.2); }
+        
+        /* Action Buttons Inside Chat Bubbles */
+        .chat-bubble-actions { display: flex; gap: 8px; margin-top: 10px; width: 100%; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 8px; }
+        .chat-bubble-actions button { padding: 5px 10px; font-size: 11px; font-weight: bold; width: auto; border-radius: 6px; letter-spacing: 0px; text-transform: capitalize; }
+        .btn-action-accept { background: linear-gradient(135deg, #43b581, #3ca374); color: white; border: none; }
+        .btn-action-reject { background: linear-gradient(135deg, #ed4245, #c9383a); color: white; border: none; }
+        .order-status-text { font-size: 11px; font-weight: bold; margin-top: 8px; padding-top: 4px; display: block; border-top: 1px solid rgba(255,255,255,0.05); }
+
+        .chat-input-row { padding: 15px; border-top: 1px solid rgba(255,255,255,0.04); display: flex; gap: 10px; background: rgba(0,0,0,0.15); }
+        .chat-input-row input { flex: 1; margin-bottom: 0; }
+        .chat-input-row button { width: 90px; }
+
+        /* Grid PC Layout */
+        .grid-container { flex: 1; padding: 20px 40px 30px 40px; overflow-y: auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 25px; align-content: start; }
+        
+        /* Card PC core elements */
         .pc-card { 
             background: rgba(30, 33, 40, 0.4); backdrop-filter: blur(8px); border-radius: 16px; padding: 20px; height: 150px;
             display: flex; flex-direction: column; justify-content: space-between; border: 1px solid rgba(255,255,255,0.06); position: relative; 
@@ -193,7 +175,6 @@
         .pc-card.online { background: rgba(44, 60, 95, 0.6); border-color: rgba(88, 101, 242, 0.5); box-shadow: 0 0 25px rgba(88, 101, 242, 0.15); }
         .pc-card.online:hover { box-shadow: 0 10px 40px rgba(88, 101, 242, 0.3); border-color: rgba(88, 101, 242, 0.8); }
 
-        /* VIP PC (1 - 5) */
         .pc-card.vip { background: linear-gradient(135deg, rgba(60, 45, 20, 0.4), rgba(30, 25, 15, 0.6)); border-color: rgba(245, 166, 35, 0.2); }
         .pc-card.vip:hover { border-color: rgba(245, 166, 35, 0.6); box-shadow: 0 15px 35px rgba(245, 166, 35, 0.1); }
         .pc-card.vip.online { background: linear-gradient(135deg, rgba(100, 70, 25, 0.6), rgba(50, 35, 15, 0.7)); border-color: rgba(245, 166, 35, 0.8); box-shadow: 0 0 30px rgba(245, 166, 35, 0.2); }
@@ -217,10 +198,6 @@
         .online .pc-footer { color: #7289da; }
         .vip.online .pc-footer { color: #f5a623; }
 
-        /* --- KEBAB MENUS --- */
-        .menu-dots { cursor: pointer; padding: 2px 8px; font-size: 18px; line-height: 1; border-radius: 6px; transition: background 0.2s; user-select: none; }
-        .menu-dots:hover { background: rgba(255,255,255,0.1); color: white; }
-        
         .action-menu { 
             display: none; position: absolute; top: 45px; right: 15px; background: rgba(20, 22, 27, 0.95); backdrop-filter: blur(15px);
             border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; z-index: 100; box-shadow: 0 15px 35px rgba(0,0,0,0.5); overflow: hidden; min-width: 160px; 
@@ -228,10 +205,6 @@
         .action-menu.show { display: block; animation: menuFadeIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .action-menu button { background: transparent; padding: 14px 18px; border: none; border-bottom: 1px solid rgba(255,255,255,0.03); cursor: pointer; text-align: left; width: 100%; font-weight: 700; font-size: 13px; transition: background 0.2s;}
         .action-menu button:last-child { border-bottom: none; }
-        .btn-logout-menu { color: #43b581; }
-        .btn-logout-menu:hover { background: rgba(67, 181, 129, 0.1); }
-        .btn-force-menu { color: #ed4245; }
-        .btn-force-menu:hover { background: rgba(237, 66, 69, 0.1); }
         
         .member-dots { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 16px; padding: 2px 6px; border-radius: 4px; color: #a1a4a9; }
         .member-dots:hover { background: rgba(255,255,255,0.1); color: white; }
@@ -242,35 +215,17 @@
         .db-action-menu.show { display: block; animation: menuFadeIn 0.15s ease-out; }
         .db-action-menu button { background: transparent; padding: 10px 14px; border: none; border-bottom: 1px solid rgba(255,255,255,0.03); cursor: pointer; text-align: left; width: 100%; font-weight: 600; font-size: 12px; }
         .db-action-menu button:last-child { border-bottom: none; }
-        .btn-ban { color: #f5a623; }
-        .btn-ban:hover { background: rgba(245, 166, 35, 0.1); }
-        .btn-unban { color: #43b581; }
-        .btn-unban:hover { background: rgba(67, 181, 129, 0.1); }
-        .btn-delete { color: #ed4245; }
-        .btn-delete:hover { background: rgba(237, 66, 69, 0.1); }
-
-        /* --- CUSTOM MODAL POP-UP --- */
-        .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px); z-index: 1000;
-            justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease;
-        }
-        .modal-overlay.show { display: flex; opacity: 1; }
-        .modal-box {
-            background: rgba(25, 28, 33, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; width: 400px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5); transform: scale(0.95) translateY(20px); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow: hidden;
-        }
-        .modal-overlay.show .modal-box { transform: scale(1) translateY(0); }
-        .modal-header { color: white; padding: 20px 25px; font-size: 16px; font-weight: 800; text-align: center; display: flex; justify-content: center; align-items: center; gap: 10px; }
-        .modal-body { padding: 35px 25px; text-align: center; font-size: 15px; color: #dcddde; line-height: 1.6; }
-        .modal-footer { display: flex; padding: 20px 25px; gap: 15px; background: rgba(15, 17, 20, 0.6); border-top: 1px solid rgba(255,255,255,0.05); }
         
-        .btn-gray { background: #4f545c; }
-        .btn-gray:hover { background: #686d73; box-shadow: none; }
-        .btn-red-modal { background: #ed4245; }
-        .btn-red-modal:hover { background: #c9383a; box-shadow: 0 4px 15px rgba(237, 66, 69, 0.4); }
+        /* Close Modal Button Layout */
+        .modal-close-x {
+            position: absolute; top: 15px; right: 15px; width: 26px; height: 26px;
+            background: rgba(237, 66, 69, 0.1); border: 1px solid rgba(237, 66, 69, 0.3);
+            color: #ed4245; border-radius: 50%; display: flex; justify-content: center;
+            align-items: center; font-size: 12px; font-weight: 900; cursor: pointer;
+            transition: all 0.2s ease; z-index: 100;
+        }
+        .modal-close-x:hover { background: #ed4245; color: white; }
 
-        /* Animations */
         @keyframes menuFadeIn { from { opacity: 0; transform: scale(0.9) translateY(-10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
         @keyframes tabFadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -278,30 +233,19 @@
 </head>
 <body>
 
-    <!-- 🔐 SECURITY APP LOCK GATE OVERLAY (UPDATED WITH NEW ADMIN TIERS) -->
-    <div class="auth-gate-overlay" id="authGate">
-        <div class="auth-gate-box">
-            <h2>🔐 Warnet Derhan123</h2>
-            <p>Authorization Required to Access Operator Terminal</p>
-            <div class="error-msg" id="authErrorMsg">⚠️ Invalid admin credentials!</div>
-            <div class="input-wrapper">
-                <input type="text" id="gateUser" placeholder="Username" autocomplete="off">
-            </div>
-            <div class="input-wrapper">
-                <input type="password" id="gatePass" placeholder="Password">
-            </div>
-            <button class="btn-green" onclick="verifyAdminGate()">Login Terminal</button>
-        </div>
-    </div>
-
     <!-- APPLICATION NAVBAR -->
     <div class="navbar">
         <div class="brand">WARNET DERHAN123</div>
-        <div class="nav-tabs">
-            <button class="nav-tab active" onclick="switchTab('dashboard')">🖥️ PC Dashboard</button>
-            <button class="nav-tab" onclick="switchTab('members')">👥 Member Management</button>
-            <button class="nav-tab" onclick="switchTab('billing')">⚙️ System Allocation</button>
-            <button class="nav-tab" onclick="switchTab('cafe')">🍽️ Food & Beverage</button>
+        <div class="nav-right-container">
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="switchTab('dashboard')">🖥️ PC Dashboard</button>
+                <button class="nav-tab" onclick="switchTab('members')">👥 Member Management</button>
+                <button class="nav-tab" onclick="switchTab('billing')">⚙️ System Allocation</button>
+                <button class="nav-tab" onclick="switchTab('cafe')">🍽️ Food & Beverage</button>
+                <button class="nav-tab" id="chatTabMenuBtn" onclick="switchTab('chat')">💬 Client Chat Hub <div class="tab-notif-dot" id="globalChatTabAlert"></div></button>
+            </div>
+            <!-- SHORTCUT FULL SCREEN TERMINAL BUTTON -->
+            <button class="btn-fullscreen" onclick="toggleFullScreenMode()">🖥️ Toggle Full Screen</button>
         </div>
     </div>
 
@@ -368,6 +312,31 @@
             </div>
         </div>
 
+        <!-- Tab 5: Live Client Chat Communications -->
+        <div class="tab-content" id="tab-chat">
+            <div class="control-group" style="padding: 15px; display: flex; flex-direction: column;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <span style="font-size:13px; font-weight:bold; color:#7289da; text-transform:uppercase; letter-spacing:1px;">✦ Chat Operator Terminal</span>
+                    <span style="font-size:11px; color:#a1a4a9;">Manual Station Chat Mode Enabled</span>
+                </div>
+                <div class="chat-container">
+                    <div class="chat-sidebar" id="chatStationSidebar">
+                        <!-- Stations loaded dynamic -->
+                    </div>
+                    <div class="chat-main">
+                        <div class="chat-area-header" id="currentChatHeader">Please select a station to open chat box</div>
+                        <div class="chat-messages-box" id="chatLogsArea">
+                            <!-- Message logs render inside here -->
+                        </div>
+                        <div class="chat-input-row">
+                            <input type="text" id="operatorChatInput" placeholder="Type your response here..." disabled>
+                            <button onclick="sendOperatorChatMessage()" id="sendChatBtn" disabled>Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <!-- MAIN MONITOR GRID -->
@@ -376,6 +345,7 @@
     <!-- DYNAMIC DIALOG MODAL OVERLAY -->
     <div class="modal-overlay" id="customModal">
         <div class="modal-box">
+            <div class="modal-close-x" id="modalTopCloseXBtn" style="display:none;" onclick="tutupModal()">✕</div>
             <div class="modal-header" id="modalHeader"></div>
             <div class="modal-body" id="modalMessage"></div>
             <div class="modal-footer" id="modalFooter"></div>
@@ -389,12 +359,18 @@
     let memberTargetIndex = null; 
     let currentModalAction = ""; 
     
-    // Cafe Cart Memory Engine
+    // Chat Database Buffers Allocation Map
+    let currentActiveChatPCId = null;
+    let chatMemoryData = {}; 
+    let activeCurrentTabId = "dashboard";
+
     let cafeCart = [];
+    
+    // UPDATED FOOD MENU ACCORDING TO USER REQUIREMENTS
     const foodMenuData = [
-        { id: 101, name: "Special Risol Mayo (3 Pcs)", price: 15000 },
+        { id: 101, name: "Indomie Goreng + Egg", price: 15000 },
         { id: 102, name: "Indomie Goreng Double + Egg", price: 12000 },
-        { id: 103, name: "Elite Crispy Chicken Rice", price: 25000 },
+        { id: 103, name: "Fried Rice Platter", price: 25000 },
         { id: 104, name: "Premium Iced Palm Sugar Latte", price: 18000 },
         { id: 105, name: "Mineral Water (Cold)", price: 5000 },
         { id: 106, name: "French Fries Premium Platter", price: 14000 }
@@ -407,42 +383,43 @@
             name: `PC-${i.toString().padStart(2, '0')}`,
             status: 'offline', 
             user: null,
-            timeRemaining: 0 
+            timeRemaining: 0,
+            hasUnread: false
         });
+        chatMemoryData[i] = []; 
     }
 
-    // --- 🔐 SECURITY GATE VERIFICATION LOGIC (UPDATED CREDENTIALS) ---
-    function verifyAdminGate() {
-        let userInp = document.getElementById("gateUser").value.trim();
-        let passInp = document.getElementById("gatePass").value;
-        let errorEl = document.getElementById("authErrorMsg");
-
-        // Validasi menggunakan Username & Password Baru (Capslock Sensitive)
-        if (userInp === "ADMIN" && passInp === "WARNETDERHAN123") {
-            let gate = document.getElementById("authGate");
-            gate.style.opacity = "0";
-            setTimeout(() => {
-                gate.style.display = "none";
-            }, 400);
+    // --- SHORTCUT TO TOGGLE BROWSER WINDOW FULL SCREEN MODE ---
+    function toggleFullScreenMode() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => {
+                alert(`Error attempting to enable full-screen mode: ${err.message}`);
+            });
         } else {
-            errorEl.style.display = "block";
-            document.getElementById("gatePass").value = "";
-            document.getElementById("gatePass").focus();
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
         }
     }
 
-    // Allow pressing "Enter" key to login inside security gate
-    document.getElementById("gatePass").addEventListener("keyup", function(event) {
-        if (event.key === "Enter") verifyAdminGate();
-    });
-
     // --- TAB SWITCHER LOGIC ---
     function switchTab(tabId) {
+        activeCurrentTabId = tabId;
         document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
         document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
         
-        event.currentTarget.classList.add('active');
+        // Find corresponding button context target
+        if (event && event.currentTarget) {
+            event.currentTarget.classList.add('active');
+        } else {
+            document.getElementById("chatTabMenuBtn").classList.add('active');
+        }
         document.getElementById(`tab-${tabId}`).classList.add('active');
+        
+        if(tabId === 'chat') {
+            document.getElementById("globalChatTabAlert").style.display = "none";
+            renderChatSidebar();
+        }
     }
 
     function renderApp() {
@@ -563,10 +540,10 @@
         });
     }
 
+    // --- CAFE F&B SYSTEM LOGICS ---
     function renderFoodMenuHub() {
         let menuGrid = document.getElementById('foodMenuGrid');
         menuGrid.innerHTML = '';
-        
         foodMenuData.forEach(item => {
             menuGrid.innerHTML += `
                 <div class="menu-item-card">
@@ -580,38 +557,23 @@
     function addItemToCart(itemId) {
         let item = foodMenuData.find(f => f.id === itemId);
         let cartItem = cafeCart.find(c => c.id === itemId);
-        
-        if (cartItem) {
-            cartItem.qty++;
-        } else {
-            cafeCart.push({ id: item.id, name: item.name, price: item.price, qty: 1 });
-        }
+        if (cartItem) { cartItem.qty++; } else { cafeCart.push({ id: item.id, name: item.name, price: item.price, qty: 1 }); }
         updateCartVisuals();
     }
 
     function updateCartVisuals() {
         let cartList = document.getElementById('cartVisualList');
         let totalHTML = document.getElementById('cartTotalPriceVisual');
-        
         cartList.innerHTML = '';
-        
         if (cafeCart.length === 0) {
             cartList.innerHTML = '<li style="color:#6b6f77; justify-content:center; padding:15px;"><i>Your cart is empty</i></li>';
-            totalHTML.innerText = "Rp 0";
-            return;
+            totalHTML.innerText = "Rp 0"; return;
         }
-        
         let grandTotal = 0;
         cafeCart.forEach((c, idx) => {
-            let itemTotal = c.price * c.qty;
-            grandTotal += itemTotal;
-            cartList.innerHTML += `
-                <li>
-                    <span><b>${c.qty}x</b> ${c.name}</span>
-                    <span style="color:#f5a623;">Rp ${itemTotal.toLocaleString('id-ID')}</span>
-                </li>`;
+            let itemTotal = c.price * c.qty; grandTotal += itemTotal;
+            cartList.innerHTML += `<li><span><b>${c.qty}x</b> ${c.name}</span><span style="color:#f5a623;">Rp ${itemTotal.toLocaleString('id-ID')}</span></li>`;
         });
-        
         totalHTML.innerText = `Rp ${grandTotal.toLocaleString('id-ID')}`;
     }
 
@@ -621,7 +583,7 @@
         if (!targetPcId) return alert("Please specify the delivery target PC station!");
         
         let pc = pcs.find(p => p.id == targetPcId);
-        
+        document.getElementById('modalTopCloseXBtn').style.display = "none"; 
         document.getElementById('modalHeader').innerHTML = `🍳 Order Sent to Kitchen!`;
         document.getElementById('modalHeader').style.background = `linear-gradient(135deg, #e67e22, #d35400)`;
         
@@ -633,17 +595,108 @@
             </div>
             Destination Station: <span style="color:#f5a623; font-weight:bold;">${pc.name}</span> ${pc.status === 'online' ? `(Active Session: <b>${pc.user}</b>)` : '(Standby)'}`;
             
-        document.getElementById('modalFooter').innerHTML = `<button class="btn-green" onclick="clearCartAndCloseModal()" style="width:100%;">Acknowledged</button>`;
+        document.getElementById('modalFooter').innerHTML = `<button class="btn-green" onclick="clearCartAndCloseModal()">Acknowledged</button>`;
         document.getElementById('customModal').classList.add('show');
     }
 
     function clearCartAndCloseModal() {
-        cafeCart = [];
-        updateCartVisuals();
+        cafeCart = []; updateCartVisuals();
         document.getElementById('deliveryTargetPC').value = "";
-        tutupModal();
-        document.querySelector('.nav-tab').click(); 
+        tutupModal(); document.querySelector('.nav-tab').click(); 
     }
+
+    // --- 💬 LIVE CHAT HUB CONTROLLER ENGINE ---
+    function renderChatSidebar() {
+        let sidebar = document.getElementById('chatStationSidebar');
+        if (!sidebar) return;
+        sidebar.innerHTML = '';
+
+        pcs.forEach(pc => {
+            let activeClass = (currentActiveChatPCId === pc.id) ? 'active' : '';
+            let checkUnread = pc.hasUnread ? 'style="display:block;"' : '';
+            
+            sidebar.innerHTML += `
+                <div class="chat-sidebar-item ${activeClass}" onclick="openPCStationChatBox(${pc.id})">
+                    <span>🖥️ ${pc.name}</span>
+                    <div class="chat-notif-dot" id="unread-dot-${pc.id}" ${checkUnread}></div>
+                </div>`;
+        });
+    }
+
+    function openPCStationChatBox(pcId) {
+        currentActiveChatPCId = pcId;
+        let pc = pcs.find(p => p.id === pcId);
+        
+        pc.hasUnread = false;
+        renderChatSidebar();
+        
+        document.getElementById('currentChatHeader').innerText = `💬 Active Channel: ${pc.name} ${pc.status === 'online' ? `[User: ${pc.user}]` : '[Standby Mode]'}`;
+        document.getElementById('operatorChatInput').disabled = false;
+        document.getElementById('sendChatBtn').disabled = false;
+        document.getElementById('operatorChatInput').focus();
+        
+        renderChatMessagesLogs();
+    }
+
+    function renderChatMessagesLogs() {
+        let logsBox = document.getElementById('chatLogsArea');
+        if(!logsBox) return;
+        logsBox.innerHTML = '';
+        
+        if (currentActiveChatPCId === null) return;
+        let logs = chatMemoryData[currentActiveChatPCId];
+        
+        if (logs.length === 0) {
+            logsBox.innerHTML = `<div style="color:#6b6f77; text-align:center; margin-top:40px; font-size:13px; font-style:italic;">No communications logged with this station yet.</div>`;
+            return;
+        }
+
+        logs.forEach((msg, idx) => {
+            let typeClass = (msg.sender === 'operator') ? 'outgoing' : 'incoming';
+            let messageHTML = `<div>${msg.text}</div>`;
+
+            if (msg.sender === 'client' && msg.isFoodOrder) {
+                if (msg.orderStatus === 'pending') {
+                    messageHTML += `
+                        <div class="chat-bubble-actions">
+                            <button class="btn-action-accept" onclick="processBubbleFoodOrder(${currentActiveChatPCId}, ${idx}, 'accepted')">Terima Pesanan</button>
+                            <button class="btn-action-reject" onclick="processBubbleFoodOrder(${currentActiveChatPCId}, ${idx}, 'rejected')">Tolak Pesanan</button>
+                        </div>`;
+                } else if (msg.orderStatus === 'accepted') {
+                    messageHTML += `<span class="order-status-text" style="color:#43b581; font-weight: bold;">✓ Order Accepted & Sent to Kitchen</span>`;
+                } else if (msg.orderStatus === 'rejected') {
+                    messageHTML += `<span class="order-status-text" style="color:#ed4245; font-weight: bold;">✕ Order Rejected</span>`;
+                }
+            }
+
+            logsBox.innerHTML += `<div class="bubble-msg ${typeClass}">${messageHTML}</div>`;
+        });
+        
+        logsBox.scrollTop = logsBox.scrollHeight;
+    }
+
+    function processBubbleFoodOrder(pcId, msgIndex, resultStatus) {
+        let msg = chatMemoryData[pcId][msgIndex];
+        msg.orderStatus = resultStatus;
+        
+        if (currentActiveChatPCId === pcId) {
+            renderChatMessagesLogs();
+        }
+    }
+
+    function sendOperatorChatMessage() {
+        let inp = document.getElementById('operatorChatInput');
+        let text = inp.value.trim();
+        if(!text || currentActiveChatPCId === null) return;
+
+        chatMemoryData[currentActiveChatPCId].push({ sender: 'operator', text: text });
+        inp.value = '';
+        renderChatMessagesLogs();
+    }
+
+    document.getElementById('operatorChatInput').addEventListener('keyup', function(e) {
+        if(e.key === 'Enter') sendOperatorChatMessage();
+    });
 
     // --- POPUP MENU INTERCHANGES ---
     function toggleMenu(pcId, event) {
@@ -671,78 +724,44 @@
 
     function tutupModal() {
         document.getElementById('customModal').classList.remove('show');
-        pcTargetId = null; 
-        memberTargetIndex = null;
-        currentModalAction = "";
+        document.getElementById('modalTopCloseXBtn').style.display = "none"; 
+        pcTargetId = null; memberTargetIndex = null; currentModalAction = "";
     }
 
     // --- MODAL ENGINE DIALOGS ---
     function bukaModalDatabase(index, action) {
-        memberTargetIndex = index;
-        currentModalAction = action;
+        memberTargetIndex = index; currentModalAction = action;
         let member = members[index];
         let header = document.getElementById('modalHeader');
         let body = document.getElementById('modalMessage');
         let footer = document.getElementById('modalFooter');
+        document.getElementById('modalTopCloseXBtn').style.display = "none"; 
 
         if (action === 'BAN') {
-            header.innerHTML = `⛔ Ban Account Authorization`;
-            header.style.background = `linear-gradient(135deg, #f5a623, #d28716)`;
+            header.innerHTML = `⛔ Ban Account Authorization`; header.style.background = `linear-gradient(135deg, #f5a623, #d28716)`;
             body.innerHTML = `Are you sure you want to ban <b>${member.nama}</b>?<br><br><span style="font-size:13px; color:#9da0a5;">If the member is active on a PC, their current active session will be forcibly terminated.</span>`;
-            footer.innerHTML = `
-                <button class="btn-gray" onclick="tutupModal()">Cancel</button>
-                <button class="btn-orange-modal" onclick="eksekusiModalDatabase()">Confirm Ban</button>
-            `;
+            footer.innerHTML = `<button class="btn-gray" onclick="tutupModal()">Cancel</button><button class="btn-orange-modal" onclick="eksekusiModalDatabase()">Confirm Ban</button>`;
         } else if (action === 'UNBAN') {
-            header.innerHTML = `✅ Unban Account Authorization`;
-            header.style.background = `linear-gradient(135deg, #43b581, #3ca374)`;
+            header.innerHTML = `✅ Unban Account Authorization`; header.style.background = `linear-gradient(135deg, #43b581, #3ca374)`;
             body.innerHTML = `Lift network restrictions and restore access for <b>${member.nama}</b>?`;
-            footer.innerHTML = `
-                <button class="btn-gray" onclick="tutupModal()">Cancel</button>
-                <button class="btn-green" onclick="eksekusiModalDatabase()">Grant Access</button>
-            `;
+            footer.innerHTML = `<button class="btn-gray" onclick="tutupModal()">Cancel</button><button class="btn-green" onclick="eksekusiModalDatabase()">Grant Access</button>`;
         } else if (action === 'DELETE') {
-            header.innerHTML = `🗑️ Permanent Account Deletion`;
-            header.style.background = `linear-gradient(135deg, #ed4245, #c9383a)`;
+            header.innerHTML = `🗑️ Permanent Account Deletion`; header.style.background = `linear-gradient(135deg, #ed4245, #c9383a)`;
             body.innerHTML = `Are you absolutely sure you want to delete <b>${member.nama}</b> permanently?<br><br><span style="font-size:13px; color:#ed4245; font-weight:bold;">All saved time bundles and history will be lost forever.</span>`;
-            footer.innerHTML = `
-                <button class="btn-gray" onclick="tutupModal()">Cancel</button>
-                <button class="btn-red-modal" onclick="eksekusiModalDatabase()">Delete Forever</button>
-            `;
+            footer.innerHTML = `<button class="btn-gray" onclick="tutupModal()">Cancel</button><button class="btn-red-modal" onclick="eksekusiModalDatabase()">Delete Forever</button>`;
         }
         document.getElementById('customModal').classList.add('show');
     }
 
-    function eksekusiModalDatabase() {
-        if (memberTargetIndex === null) return;
-        let member = members[memberTargetIndex];
-
-        if (currentModalAction === 'BAN') {
-            member.status = 'BANNED';
-            let activePC = pcs.find(p => p.user === member.nama);
-            if (activePC) {
-                activePC.status = 'offline'; activePC.user = null; activePC.timeRemaining = 0;
-            }
-        } else if (currentModalAction === 'UNBAN') {
-            member.status = 'ACTIVE';
-        } else if (currentModalAction === 'DELETE') {
-            let activePC = pcs.find(p => p.user === member.nama);
-            if (activePC) {
-                activePC.status = 'offline'; activePC.user = null; activePC.timeRemaining = 0;
-            }
-            members.splice(memberTargetIndex, 1);
-        }
-        localStorage.setItem('dbMembers', JSON.stringify(members));
-        renderApp();
-        tutupModal();
-    }
-
     function showAccessDeniedModal(userName, pcName, customMsg = "") {
-        document.getElementById('modalHeader').innerHTML = `🚫 Access Denied`;
-        document.getElementById('modalHeader').style.background = `linear-gradient(135deg, #ed4245, #c9383a)`;
+        document.getElementById('modalTopCloseXBtn').style.display = "flex";
+        let header = document.getElementById('modalHeader');
+        header.innerHTML = `🚫 Access Denied`;
+        header.style.background = `linear-gradient(135deg, #ed4245, #c9383a)`;
+        
         let pesan = customMsg ? customMsg : `User <b>${userName}</b> holds a Standard/Regular membership and is restricted from accessing the VIP Lounge (<span style="color:#f5a623; font-weight:bold;">${pcName}</span>).<br><br><span style="font-size:13px; color:#9da0a5;">Please allocate a Regular PC (PC-06 to PC-24) or upgrade their membership tier.</span>`;
         document.getElementById('modalMessage').innerHTML = pesan;
-        document.getElementById('modalFooter').innerHTML = `<button class="btn-gray" onclick="tutupModal()" style="width:100%;">Acknowledge</button>`;
+        document.getElementById('modalFooter').innerHTML = `<button class="btn-gray" onclick="tutupModal()" style="width:100%; font-weight:bold;">Acknowledge</button>`;
         document.getElementById('customModal').classList.add('show');
     }
 
@@ -750,13 +769,11 @@
         let pc = pcs.find(p => p.id === pcId);
         if (pc.status === 'offline') return alert("This PC is already offline.");
         pcTargetId = pcId; 
+        document.getElementById('modalTopCloseXBtn').style.display = "none";
         document.getElementById('modalHeader').innerHTML = `⚠️ Terminate Warning`;
         document.getElementById('modalHeader').style.background = `linear-gradient(135deg, #ed4245, #c9383a)`;
         document.getElementById('modalMessage').innerHTML = `Are you sure you want to terminate <b>${pc.user}</b>'s session on <span style="color:#ed4245; font-weight:bold;">${pc.name}</span>?<br><br><span style="font-size:13px; color:#9da0a5;">Remaining time will be deleted permanently.</span>`;
-        document.getElementById('modalFooter').innerHTML = `
-            <button class="btn-gray" onclick="tutupModal()">Cancel</button>
-            <button class="btn-red-modal" onclick="eksekusiForceClose()">Terminate</button>
-        `;
+        document.getElementById('modalFooter').innerHTML = `<button class="btn-gray" onclick="tutupModal()">Cancel</button><button class="btn-red-modal" onclick="eksekusiForceClose()">Terminate</button>`;
         document.getElementById('customModal').classList.add('show');
     }
 
@@ -764,6 +781,7 @@
         let pc = pcs.find(p => p.id === pcId);
         if (pc.status === 'offline') return alert("This PC is already offline.");
         pcTargetId = pcId; 
+        document.getElementById('modalTopCloseXBtn').style.display = "none";
         document.getElementById('modalHeader').innerHTML = `💾 Save Session`;
         document.getElementById('modalHeader').style.background = `linear-gradient(135deg, #43b581, #3ca374)`;
         
@@ -776,11 +794,31 @@
             pesan = `Logout <b>${pc.user}</b> from <span>${pc.name}</span>?<br><br><span style="font-size:13px; color:#43b581; font-weight:bold;">Remaining time (⏳ ${h}H ${m}M) will be saved to database.</span>`;
         }
         document.getElementById('modalMessage').innerHTML = pesan;
-        document.getElementById('modalFooter').innerHTML = `
-            <button class="btn-gray" onclick="tutupModal()">Cancel</button>
-            <button class="btn-green" onclick="eksekusiLogout()">Confirm Logout</button>
-        `;
+        document.getElementById('modalFooter').innerHTML = `<button class="btn-gray" onclick="tutupModal()">Cancel</button><button class="btn-green" onclick="eksekusiLogout()">Confirm Logout</button>`;
         document.getElementById('customModal').classList.add('show');
+    }
+
+    function eksekusiModalDatabase() {
+        if (memberTargetIndex === null) return;
+        let member = members[memberTargetIndex];
+
+        if (currentModalAction === 'BAN') {
+            member.status = 'BANNED';
+            let activePC = pcs.find(p => p.user === member.nama);
+            if (activePC) { 
+                activePC.status = 'offline'; activePC.user = null; activePC.timeRemaining = 0; 
+            }
+        } else if (currentModalAction === 'UNBAN') {
+            member.status = 'ACTIVE';
+        } else if (currentModalAction === 'DELETE') {
+            let activePC = pcs.find(p => p.user === member.nama);
+            if (activePC) { 
+                activePC.status = 'offline'; activePC.user = null; activePC.timeRemaining = 0; 
+            }
+            members.splice(memberTargetIndex, 1);
+        }
+        localStorage.setItem('dbMembers', JSON.stringify(members));
+        renderApp(); tutupModal();
     }
 
     function eksekusiForceClose() {
@@ -811,17 +849,13 @@
         let nama = document.getElementById("namaMember").value.trim().toUpperCase();
         let pass = document.getElementById("passMember").value;
         let tipe = document.getElementById("tipeMember").value;
-
         if(!nama || !pass) return alert("Username and Password are required!");
         if(members.find(m => m.nama === nama)) return alert("Error: Username already exists in database!");
 
         members.push({ nama: nama, password: pass, sisaWaktu: 0, tipe: tipe, status: 'ACTIVE' });
         localStorage.setItem('dbMembers', JSON.stringify(members));
-        
-        document.getElementById("namaMember").value = "";
-        document.getElementById("passMember").value = "";
-        document.getElementById("tipeMember").value = "REGULAR";
-        renderApp(); 
+        document.getElementById("namaMember").value = ""; document.getElementById("passMember").value = "";
+        document.getElementById("tipeMember").value = "REGULAR"; renderApp(); 
     }
 
     function aktifkanPC() {
@@ -830,14 +864,10 @@
         let jamInput = document.getElementById("jamBilling").value;
         let pc = pcs.find(p => p.id === pcId);
 
-        if (pc.status === 'online' && pc.user !== userName) {
-            return alert("This PC is currently in use by another user!");
-        }
-
+        if (pc.status === 'online' && pc.user !== userName) { return alert("This PC is currently in use by another user!"); }
         let memberData = members.find(m => m.nama === userName);
         if (memberData && memberData.status === 'BANNED') {
-            showAccessDeniedModal(userName, pc.name, `Access Blocked: Account <b>${userName}</b> is currently BANNED from Derhan123 network.`);
-            return;
+            showAccessDeniedModal(userName, pc.name, `Access Blocked: Account <b>${userName}</b> is currently BANNED from Derhan123 network.`); return;
         }
 
         let isVipPC = (pcId <= 5);
@@ -851,33 +881,22 @@
         let sisaWaktuDB = memberData ? (memberData.sisaWaktu || 0) : 0;
         let totalWaktu = waktuBaru + sisaWaktuDB;
 
-        if(totalWaktu <= 0) {
-            return alert("Please enter valid duration or select a member with saved time.");
-        }
+        if(totalWaktu <= 0) { return alert("Please enter valid duration or select a member with saved time."); }
+        if (memberData) { memberData.sisaWaktu = 0; localStorage.setItem('dbMembers', JSON.stringify(members)); }
 
-        if (memberData) {
-            memberData.sisaWaktu = 0; 
-            localStorage.setItem('dbMembers', JSON.stringify(members));
-        }
+        pc.status = 'online'; pc.user = userName; pc.timeRemaining += totalWaktu;
 
-        pc.status = 'online';
-        pc.user = userName;
-        pc.timeRemaining += totalWaktu; 
-
-        document.getElementById("jamBilling").value = "";
-        renderApp();
-        
-        document.querySelector('.nav-tab').click();
+        document.getElementById("jamBilling").value = ""; renderApp(); document.querySelector('.nav-tab').click();
     }
 
-    // --- TIMING ENGINE (TICK EVENT LOOP) ---
+    // --- TIMING ENGINE (TICK EVENT LOOP - 1s) ---
     setInterval(() => {
         let adaYangAktif = false;
         pcs.forEach(pc => {
             if(pc.timeRemaining > 0) {
                 pc.timeRemaining--; adaYangAktif = true;
-                if(pc.timeRemaining <= 0) {
-                    pc.status = 'offline'; pc.user = null; pc.timeRemaining = 0;
+                if(pc.timeRemaining <= 0) { 
+                    pc.status = 'offline'; pc.user = null; pc.timeRemaining = 0; 
                     renderApp(); 
                 }
             }
@@ -898,9 +917,10 @@
         }
     }, 1000); 
 
-    // Initial Engine Deployment
+    // Initial View Deployment
     renderApp();
 </script>
 
 </body>
 </html>
+
