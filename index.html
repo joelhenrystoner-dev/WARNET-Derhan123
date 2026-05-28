@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Derhan123 Elite Cybercafe - Smart Billing System</title>
+    <title>WARNET DERHAN123 - Smart Billing System</title>
     <style>
         /* CSS Reset & Basic Setup */
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -15,41 +15,89 @@
             color: #dcddde; display: flex; flex-direction: column; height: 100vh; overflow: hidden; 
         }
         
-        /* --- HEADER & CONTROL PANEL (ULTRA MODERN) --- */
+        /* --- PREMIUM NAVIGATION BAR --- */
+        .navbar {
+            background: rgba(22, 24, 29, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.5);
+            z-index: 20;
+        }
+        .navbar .brand {
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, #7289da, #f6d365);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+        }
+        .nav-tab {
+            padding: 10px 20px;
+            background: transparent;
+            color: #b9bbbe;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: none;
+            width: auto;
+        }
+        .nav-tab:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.05);
+        }
+        .nav-tab.active {
+            color: #fff;
+            background: #7289da;
+            box-shadow: 0 4px 15px rgba(114, 137, 218, 0.3);
+        }
+
+        /* --- CONTROL PANEL HEADER (TAB LAYOUT) --- */
         .header { 
-            background: rgba(22, 24, 29, 0.7); 
-            backdrop-filter: blur(16px);
-            padding: 20px 30px; display: flex; gap: 25px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6); z-index: 10; flex-wrap: wrap; 
-            border-bottom: 1px solid rgba(255,255,255,0.03); 
+            padding: 25px 40px 10px 40px; 
+            display: flex; 
+            z-index: 10; 
         }
         
+        /* Tab Content System */
+        .tab-content {
+            display: none;
+            width: 100%;
+            gap: 25px;
+        }
+        .tab-content.active {
+            display: flex;
+            animation: tabFadeIn 0.4s ease-out;
+        }
+
         .control-group { 
             background: linear-gradient(145deg, rgba(35, 38, 45, 0.4), rgba(25, 28, 33, 0.6));
-            padding: 20px; border-radius: 16px; flex: 1; min-width: 280px; 
+            padding: 22px; border-radius: 16px; flex: 1; 
             border: 1px solid rgba(255,255,255,0.04); 
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             position: relative;
-        }
-        .control-group:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4); 
-            border-color: rgba(114, 137, 218, 0.2);
         }
         
         .control-group h3 { 
             margin-bottom: 18px; font-size: 13px; color: #7289da; 
             border-bottom: 1px solid rgba(114, 137, 218, 0.15); padding-bottom: 10px; 
             text-transform: uppercase; letter-spacing: 1.5px; font-weight: 800;
-            display: flex; align-items: center; gap: 8px;
         }
 
         /* Input & Select Premium Styling */
-        .input-wrapper {
-            position: relative;
-            margin-bottom: 15px;
-        }
+        .input-wrapper { position: relative; margin-bottom: 15px; }
         input, select { 
             width: 100%; padding: 12px 15px;
             background-color: rgba(15, 17, 20, 0.6); 
@@ -86,19 +134,19 @@
         /* Database Visual List */
         .db-list { 
             list-style: none; background: rgba(15, 17, 20, 0.4); padding: 10px; 
-            border-radius: 10px; max-height: 180px; overflow-y: auto; font-size: 13px; 
+            border-radius: 10px; max-height: 250px; overflow-y: auto; font-size: 13px; 
             border: 1px solid rgba(255,255,255,0.03); 
         }
         .db-list li { 
-            padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.03); 
+            padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.03); 
             display: flex; justify-content: space-between; align-items: center; 
-            border-radius: 6px; transition: background 0.2s; position: relative;
+            border-radius: 8px; transition: background 0.2s; position: relative;
         }
         .db-list li:hover { background: rgba(255,255,255,0.05); }
         .db-list li:last-child { border-bottom: none; }
         .db-list li.banned-user span b { color: #ed4245; text-decoration: line-through; opacity: 0.6; }
         
-        .badge-group { display: flex; gap: 6px; align-items: center; margin-right: 25px; }
+        .badge-group { display: flex; gap: 6px; align-items: center; margin-right: 35px; }
         .badge { background: #7289da; color: white; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;}
         .badge.vip-tier { background: linear-gradient(90deg, #f6d365, #fda085); color: #111; box-shadow: 0 2px 5px rgba(245, 166, 35, 0.3); }
         .badge.banned-tier { background: #ed4245; color: white; box-shadow: 0 0 8px rgba(237, 66, 69, 0.4); }
@@ -106,7 +154,7 @@
 
         /* Grid PC Layout */
         .grid-container { 
-            flex: 1; padding: 30px; overflow-y: auto; display: grid; 
+            flex: 1; padding: 20px 40px 30px 40px; overflow-y: auto; display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 25px; align-content: start; 
         }
         
@@ -125,7 +173,6 @@
             border-color: rgba(255,255,255,0.15); 
             background: rgba(40, 45, 55, 0.6);
         }
-        
         .pc-card.online { 
             background: rgba(44, 60, 95, 0.6); 
             border-color: rgba(88, 101, 242, 0.5); box-shadow: 0 0 25px rgba(88, 101, 242, 0.15); 
@@ -135,19 +182,15 @@
             border-color: rgba(88, 101, 242, 0.8);
         }
 
-        /* --- VIP CARD STYLING (PC 1 - 5) --- */
+        /* VIP PC (1 - 5) */
         .pc-card.vip {
             background: linear-gradient(135deg, rgba(60, 45, 20, 0.4), rgba(30, 25, 15, 0.6));
             border-color: rgba(245, 166, 35, 0.2);
         }
-        .pc-card.vip:hover {
-            border-color: rgba(245, 166, 35, 0.6);
-            box-shadow: 0 15px 35px rgba(245, 166, 35, 0.1);
-        }
+        .pc-card.vip:hover { border-color: rgba(245, 166, 35, 0.6); box-shadow: 0 15px 35px rgba(245, 166, 35, 0.1); }
         .pc-card.vip.online {
             background: linear-gradient(135deg, rgba(100, 70, 25, 0.6), rgba(50, 35, 15, 0.7));
-            border-color: rgba(245, 166, 35, 0.8);
-            box-shadow: 0 0 30px rgba(245, 166, 35, 0.2);
+            border-color: rgba(245, 166, 35, 0.8); box-shadow: 0 0 30px rgba(245, 166, 35, 0.2);
         }
         .vip-badge {
             background: linear-gradient(90deg, #f6d365, #fda085);
@@ -158,7 +201,6 @@
         
         .pc-header { display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: #a1a4a9; font-weight: 800; letter-spacing: 0.5px;}
         .online .pc-header { color: #fff; }
-        
         .status-indicator { display: flex; align-items: center; gap: 8px; }
         .status-icon { width: 10px; height: 10px; border-radius: 50%; background-color: #ed4245; box-shadow: 0 0 10px #ed4245; } 
         .online .status-icon { background-color: #43b581; box-shadow: 0 0 12px #43b581; } 
@@ -172,7 +214,7 @@
         .online .pc-footer { color: #7289da; }
         .vip.online .pc-footer { color: #f5a623; }
 
-        /* --- FITUR KEBAB MENU --- */
+        /* --- KEBAB MENUS --- */
         .menu-dots { cursor: pointer; padding: 2px 8px; font-size: 18px; line-height: 1; border-radius: 6px; transition: background 0.2s; user-select: none; }
         .menu-dots:hover { background: rgba(255,255,255,0.1); color: white; }
         
@@ -185,34 +227,28 @@
         .action-menu.show { display: block; animation: menuFadeIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .action-menu button { background: transparent; padding: 14px 18px; border: none; border-bottom: 1px solid rgba(255,255,255,0.03); cursor: pointer; text-align: left; width: 100%; font-weight: 700; font-size: 13px; transition: background 0.2s;}
         .action-menu button:last-child { border-bottom: none; }
-        
         .btn-logout-menu { color: #43b581; }
         .btn-logout-menu:hover { background: rgba(67, 181, 129, 0.1); }
         .btn-force-menu { color: #ed4245; }
         .btn-force-menu:hover { background: rgba(237, 66, 69, 0.1); }
         
-        /* --- KEBAB MENU UNTUK DATABASE LIST --- */
         .member-dots { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 16px; padding: 2px 6px; border-radius: 4px; color: #a1a4a9; }
         .member-dots:hover { background: rgba(255,255,255,0.1); color: white; }
-        
         .db-action-menu {
             display: none; position: absolute; top: 35px; right: 5px;
             background: rgba(20, 22, 27, 0.98); backdrop-filter: blur(15px);
             border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
-            z-index: 150; box-shadow: 0 10px 25px rgba(0,0,0,0.5); overflow: hidden; min-width: 130px;
+            z-index: 150; box-shadow: 0 10px 25px rgba(0,0,0,0.5); overflow: hidden; min-width: 140px;
         }
         .db-action-menu.show { display: block; animation: menuFadeIn 0.15s ease-out; }
         .db-action-menu button { background: transparent; padding: 10px 14px; border: none; border-bottom: 1px solid rgba(255,255,255,0.03); cursor: pointer; text-align: left; width: 100%; font-weight: 600; font-size: 12px; }
         .db-action-menu button:last-child { border-bottom: none; }
-        
         .btn-ban { color: #f5a623; }
         .btn-ban:hover { background: rgba(245, 166, 35, 0.1); }
         .btn-unban { color: #43b581; }
         .btn-unban:hover { background: rgba(67, 181, 129, 0.1); }
         .btn-delete { color: #ed4245; }
         .btn-delete:hover { background: rgba(237, 66, 69, 0.1); }
-
-        @keyframes menuFadeIn { from { opacity: 0; transform: scale(0.9) translateY(-10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
         /* --- CUSTOM MODAL POP-UP --- */
         .modal-overlay {
@@ -221,7 +257,6 @@
             justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease;
         }
         .modal-overlay.show { display: flex; opacity: 1; }
-        
         .modal-box {
             background: rgba(25, 28, 33, 0.95); backdrop-filter: blur(20px);
             border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; width: 400px;
@@ -230,11 +265,7 @@
             overflow: hidden;
         }
         .modal-overlay.show .modal-box { transform: scale(1) translateY(0); }
-
-        .modal-header {
-            color: white; padding: 20px 25px; font-size: 16px; font-weight: 800; text-align: center;
-            display: flex; justify-content: center; align-items: center; gap: 10px; letter-spacing: 0.5px;
-        }
+        .modal-header { color: white; padding: 20px 25px; font-size: 16px; font-weight: 800; text-align: center; display: flex; justify-content: center; align-items: center; gap: 10px; }
         .modal-body { padding: 35px 25px; text-align: center; font-size: 15px; color: #dcddde; line-height: 1.6; }
         .modal-footer { display: flex; padding: 20px 25px; gap: 15px; background: rgba(15, 17, 20, 0.6); border-top: 1px solid rgba(255,255,255,0.05); }
         
@@ -243,46 +274,60 @@
         .btn-red-modal { background: #ed4245; }
         .btn-red-modal:hover { background: #c9383a; box-shadow: 0 4px 15px rgba(237, 66, 69, 0.4); }
 
+        /* Animations */
+        @keyframes menuFadeIn { from { opacity: 0; transform: scale(0.9) translateY(-10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes tabFadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
     </style>
 </head>
 <body>
 
+    <div class="navbar">
+        <div class="brand">WARNET DERHAN123</div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('dashboard')">🖥️ PC Dashboard</button>
+            <button class="nav-tab" onclick="switchTab('members')">👥 Member Management</button>
+            <button class="nav-tab" onclick="switchTab('billing')">⚙️ System Allocation</button>
+        </div>
+    </div>
+
     <div class="header">
-        <div class="control-group">
-            <h3>✦ New Member Registration</h3>
-            <div class="input-wrapper">
-                <input type="text" id="namaMember" placeholder="Enter Username">
+        
+        <div class="tab-content active" id="tab-dashboard">
+            <div class="control-group" style="padding: 12px; display: flex; align-items: center; justify-content: center; background: rgba(114, 137, 218, 0.05);">
+                <span style="font-size: 13px; color: #7289da; font-weight: bold; letter-spacing: 0.5px;">💡 OPERATOR NOTE: USE THE 3-DOTS (⋮) ON EACH PC CARD TO CONTROL OR LOGOUT SESSIONS</span>
             </div>
-            <div class="input-wrapper">
-                <input type="password" id="passMember" placeholder="Create Password">
-            </div>
-            <div class="input-wrapper">
-                <select id="tipeMember">
-                    <option value="REGULAR">Regular Member</option>
-                    <option value="VIP">VIP Member</option>
-                </select>
-            </div>
-            <button onclick="buatMember()">Register to System</button>
         </div>
 
-        <div class="control-group">
-            <h3>✦ Active Database</h3>
-            <ul class="db-list" id="listMemberVisual"></ul>
+        <div class="tab-content" id="tab-members">
+            <div class="control-group">
+                <h3>✦ New Member Registration</h3>
+                <div class="input-wrapper"><input type="text" id="namaMember" placeholder="Enter Username"></div>
+                <div class="input-wrapper"><input type="password" id="passMember" placeholder="Create Password"></div>
+                <div class="input-wrapper">
+                    <select id="tipeMember">
+                        <option value="REGULAR">Regular Member</option>
+                        <option value="VIP">VIP Member</option>
+                    </select>
+                </div>
+                <button onclick="buatMember()">Register to System</button>
+            </div>
+            <div class="control-group">
+                <h3>✦ Active Member Database</h3>
+                <ul class="db-list" id="listMemberVisual"></ul>
+            </div>
         </div>
 
-        <div class="control-group">
-            <h3>✦ PC Allocation & Billing</h3>
-            <div class="input-wrapper">
-                <select id="pilihPC"></select>
+        <div class="tab-content" id="tab-billing">
+            <div class="control-group">
+                <h3>✦ PC Allocation & Time Session</h3>
+                <div class="input-wrapper"><select id="pilihPC"></select></div>
+                <div class="input-wrapper"><select id="pilihMember"></select></div>
+                <div class="input-wrapper"><input type="number" id="jamBilling" placeholder="Duration (Hours) - Leave blank if using saved time"></div>
+                <button class="btn-green" onclick="aktifkanPC()">Confirm Session</button>
             </div>
-            <div class="input-wrapper">
-                <select id="pilihMember"></select>
-            </div>
-            <div class="input-wrapper">
-                <input type="number" id="jamBilling" placeholder="Duration (Hours) - Leave blank if using saved time">
-            </div>
-            <button class="btn-green" onclick="aktifkanPC()">Confirm Session</button>
         </div>
+
     </div>
 
     <div class="grid-container" id="pcGrid">
@@ -300,10 +345,10 @@
     let members = JSON.parse(localStorage.getItem('dbMembers')) || [];
     let pcs = [];
     let pcTargetId = null; 
-    let memberTargetIndex = null; // Track index member untuk operasi database modal
-    let currentModalAction = ""; // Track aksi modal database ('BAN', 'UNBAN', 'DELETE')
+    let memberTargetIndex = null; 
+    let currentModalAction = ""; 
     
-    // Inisialisasi 24 PC
+    // Setup 24 Client Stations
     for(let i = 1; i <= 24; i++) {
         pcs.push({
             id: i,
@@ -312,6 +357,15 @@
             user: null,
             timeRemaining: 0 
         });
+    }
+
+    // --- TAB SWITCHER LOGIC ---
+    function switchTab(tabId) {
+        document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        
+        event.currentTarget.classList.add('active');
+        document.getElementById(`tab-${tabId}`).classList.add('active');
     }
 
     function renderApp() {
@@ -327,7 +381,7 @@
         listVisual.innerHTML = '';
 
         if(members.length === 0) {
-            listVisual.innerHTML = '<li style="color:#6b6f77; justify-content:center;"><i>No members registered yet</i></li>';
+            listVisual.innerHTML = '<li style="color:#6b6f77; justify-content:center; padding: 20px;"><i>No members registered yet</i></li>';
         } else {
             members.forEach((m, index) => {
                 if (m.status !== 'BANNED') {
@@ -336,7 +390,6 @@
                 
                 let sisaDetik = m.sisaWaktu || 0;
                 let badgeTimeHTML = '';
-                
                 if (sisaDetik > 0) {
                     let h = Math.floor(sisaDetik / 3600);
                     let mnt = Math.floor((sisaDetik % 3600) / 60);
@@ -345,7 +398,6 @@
 
                 let tipeBadgeHTML = '';
                 let isBannedClass = '';
-                
                 if (m.status === 'BANNED') {
                     tipeBadgeHTML = `<span class="badge banned-tier">BANNED</span>`;
                     isBannedClass = 'banned-user';
@@ -427,7 +479,7 @@
         });
     }
 
-    // --- FUNGSI MENU INTERAKTIF ---
+    // --- POPUP MENU INTERCHANGES ---
     function toggleMenu(pcId, event) {
         event.stopPropagation(); 
         document.querySelectorAll('.db-action-menu').forEach(m => m.classList.remove('show'));
@@ -463,7 +515,6 @@
         memberTargetIndex = index;
         currentModalAction = action;
         let member = members[index];
-
         let header = document.getElementById('modalHeader');
         let body = document.getElementById('modalMessage');
         let footer = document.getElementById('modalFooter');
@@ -493,7 +544,6 @@
                 <button class="btn-red-modal" onclick="eksekusiModalDatabase()">Delete Forever</button>
             `;
         }
-
         document.getElementById('customModal').classList.add('show');
     }
 
@@ -505,22 +555,17 @@
             member.status = 'BANNED';
             let activePC = pcs.find(p => p.user === member.nama);
             if (activePC) {
-                activePC.status = 'offline';
-                activePC.user = null;
-                activePC.timeRemaining = 0;
+                activePC.status = 'offline'; activePC.user = null; activePC.timeRemaining = 0;
             }
         } else if (currentModalAction === 'UNBAN') {
             member.status = 'ACTIVE';
         } else if (currentModalAction === 'DELETE') {
             let activePC = pcs.find(p => p.user === member.nama);
             if (activePC) {
-                activePC.status = 'offline';
-                activePC.user = null;
-                activePC.timeRemaining = 0;
+                activePC.status = 'offline'; activePC.user = null; activePC.timeRemaining = 0;
             }
             members.splice(memberTargetIndex, 1);
         }
-
         localStorage.setItem('dbMembers', JSON.stringify(members));
         renderApp();
         tutupModal();
@@ -538,7 +583,6 @@
     function bukaModalForceClose(pcId) {
         let pc = pcs.find(p => p.id === pcId);
         if (pc.status === 'offline') return alert("This PC is already offline.");
-
         pcTargetId = pcId; 
         document.getElementById('modalHeader').innerHTML = `⚠️ Terminate Warning`;
         document.getElementById('modalHeader').style.background = `linear-gradient(135deg, #ed4245, #c9383a)`;
@@ -553,7 +597,6 @@
     function bukaModalLogout(pcId) {
         let pc = pcs.find(p => p.id === pcId);
         if (pc.status === 'offline') return alert("This PC is already offline.");
-
         pcTargetId = pcId; 
         document.getElementById('modalHeader').innerHTML = `💾 Save Session`;
         document.getElementById('modalHeader').style.background = `linear-gradient(135deg, #43b581, #3ca374)`;
@@ -577,15 +620,11 @@
     function eksekusiForceClose() {
         if (pcTargetId !== null) {
             let pc = pcs.find(p => p.id === pcTargetId);
-            pc.status = 'offline';
-            pc.user = null;
-            pc.timeRemaining = 0; 
-            renderApp(); 
-            tutupModal();
+            pc.status = 'offline'; pc.user = null; pc.timeRemaining = 0; 
+            renderApp(); tutupModal();
         }
     }
 
-    /* Eksekusi Log Out (Simpan ke DB) */
     function eksekusiLogout() {
         if (pcTargetId !== null) {
             let pc = pcs.find(p => p.id === pcTargetId);
@@ -596,15 +635,12 @@
                     localStorage.setItem('dbMembers', JSON.stringify(members));
                 }
             }
-            pc.status = 'offline';
-            pc.user = null;
-            pc.timeRemaining = 0; 
-            renderApp(); 
-            tutupModal();
+            pc.status = 'offline'; pc.user = null; pc.timeRemaining = 0; 
+            renderApp(); tutupModal();
         }
     }
 
-    // --- FUNGSI PROSES INPUT UTAMA ---
+    // --- CORE TRANSACTION CONTROLS ---
     function buatMember() {
         let nama = document.getElementById("namaMember").value.trim().toUpperCase();
         let pass = document.getElementById("passMember").value;
@@ -626,7 +662,6 @@
         let pcId = parseInt(document.getElementById("pilihPC").value);
         let userName = document.getElementById("pilihMember").value;
         let jamInput = document.getElementById("jamBilling").value;
-        
         let pc = pcs.find(p => p.id === pcId);
 
         if (pc.status === 'online' && pc.user !== userName) {
@@ -642,10 +677,7 @@
         let isVipPC = (pcId <= 5);
         if (isVipPC) {
             let isVipMember = (memberData && memberData.tipe === 'VIP');
-            if (!isVipMember) {
-                showAccessDeniedModal(userName, pc.name);
-                return; 
-            }
+            if (!isVipMember) { showAccessDeniedModal(userName, pc.name); return; }
         }
 
         let jam = parseFloat(jamInput) || 0;
@@ -668,21 +700,19 @@
 
         document.getElementById("jamBilling").value = "";
         renderApp();
+        
+        // Auto switch back to Dashboard Tab after successful activation
+        document.querySelector('.nav-tab').click();
     }
 
-    // --- TIMER GLOBAL REAL-TIME ---
+    // --- TIMING ENGINE (TICK EVENT LOOP) ---
     setInterval(() => {
         let adaYangAktif = false;
-        
         pcs.forEach(pc => {
             if(pc.timeRemaining > 0) {
-                pc.timeRemaining--; 
-                adaYangAktif = true;
-                
+                pc.timeRemaining--; adaYangAktif = true;
                 if(pc.timeRemaining <= 0) {
-                    pc.status = 'offline';
-                    pc.user = null;
-                    pc.timeRemaining = 0;
+                    pc.status = 'offline'; pc.user = null; pc.timeRemaining = 0;
                 }
             }
         });
@@ -702,6 +732,7 @@
         }
     }, 1000); 
 
+    // Initialize View Deployment
     renderApp();
 </script>
 
