@@ -14,6 +14,32 @@
             background-attachment: fixed;
             color: #dcddde; display: flex; flex-direction: column; height: 100vh; overflow: hidden; 
         }
+
+        /* --- 🔐 SECURITY APP LOCK GATE OVERLAY --- */
+        .auth-gate-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(8, 9, 11, 0.85);
+            backdrop-filter: blur(25px); /* Full page lock blur effect */
+            z-index: 9999; display: flex; justify-content: center; align-items: center;
+            opacity: 1; transition: opacity 0.4s ease;
+        }
+        .auth-gate-box {
+            background: linear-gradient(145deg, #232730, #181a21);
+            border: 1px solid rgba(114, 137, 218, 0.2);
+            border-radius: 24px; width: 380px; padding: 40px 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 30px rgba(114, 137, 218, 0.05);
+            text-align: center;
+            transform: scale(1); transition: transform 0.3s ease;
+        }
+        .auth-gate-box h2 {
+            font-size: 20px; font-weight: 900; letter-spacing: 1.5px; color: #fff;
+            margin-bottom: 8px; text-transform: uppercase;
+        }
+        .auth-gate-box p { font-size: 13px; color: #72767d; margin-bottom: 25px; }
+        .auth-gate-box .error-msg {
+            color: #ed4245; font-size: 13px; font-weight: bold; margin-bottom: 15px;
+            display: none; animation: tabFadeIn 0.3s ease;
+        }
         
         /* --- PREMIUM NAVIGATION BAR --- */
         .navbar {
@@ -35,59 +61,30 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .nav-tabs {
-            display: flex;
-            gap: 10px;
-        }
+        .nav-tabs { display: flex; gap: 10px; }
         .nav-tab {
-            padding: 10px 20px;
-            background: transparent;
-            color: #b9bbbe;
-            border: none;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            box-shadow: none;
-            width: auto;
+            padding: 10px 20px; background: transparent; color: #b9bbbe; border: none; border-radius: 8px;
+            font-size: 13px; font-weight: 700; cursor: pointer; text-transform: uppercase;
+            letter-spacing: 0.5px; transition: all 0.3s ease; box-shadow: none; width: auto;
         }
-        .nav-tab:hover {
-            color: #fff;
-            background: rgba(255,255,255,0.05);
-        }
+        .nav-tab:hover { color: #fff; background: rgba(255,255,255,0.05); }
         .nav-tab.active {
-            color: #fff;
-            background: #7289da;
+            color: #fff; background: #7289da;
             box-shadow: 0 4px 15px rgba(114, 137, 218, 0.3);
         }
 
         /* --- CONTROL PANEL HEADER (TAB LAYOUT) --- */
-        .header { 
-            padding: 25px 40px 10px 40px; 
-            display: flex; 
-            z-index: 10; 
-        }
+        .header { padding: 25px 40px 10px 40px; display: flex; z-index: 10; }
         
         /* Tab Content System */
-        .tab-content {
-            display: none;
-            width: 100%;
-            gap: 25px;
-        }
-        .tab-content.active {
-            display: flex;
-            animation: tabFadeIn 0.4s ease-out;
-        }
+        .tab-content { display: none; width: 100%; gap: 25px; }
+        .tab-content.active { display: flex; animation: tabFadeIn 0.4s ease-out; }
 
         .control-group { 
             background: linear-gradient(145deg, rgba(35, 38, 45, 0.4), rgba(25, 28, 33, 0.6));
             padding: 22px; border-radius: 16px; flex: 1; 
             border: 1px solid rgba(255,255,255,0.04); 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); position: relative;
         }
         
         .control-group h3 { 
@@ -156,55 +153,27 @@
 
         /* --- FOOD MENU HUB STYLING --- */
         .food-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 15px;
-            max-height: 250px;
-            overflow-y: auto;
-            width: 100%;
-            padding-right: 5px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px;
+            max-height: 250px; overflow-y: auto; width: 100%; padding-right: 5px;
         }
         .menu-item-card {
-            background: rgba(15, 17, 20, 0.5);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 12px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            text-align: center;
-            transition: all 0.2s ease;
+            background: rgba(15, 17, 20, 0.5); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px;
+            padding: 12px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; text-align: center; transition: all 0.2s ease;
         }
-        .menu-item-card:hover {
-            background: rgba(255,255,255,0.03);
-            border-color: #e67e22;
-        }
+        .menu-item-card:hover { background: rgba(255,255,255,0.03); border-color: #e67e22; }
         .menu-item-name { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
         .menu-item-price { font-size: 13px; font-weight: 800; color: #f5a623; margin-bottom: 10px; }
         .menu-item-card button { padding: 6px 12px; font-size: 11px; border-radius: 6px; }
 
         /* Cart Visual Display */
         .cart-list {
-            list-style: none;
-            background: rgba(15, 17, 20, 0.4);
-            border-radius: 10px;
-            max-height: 140px;
-            overflow-y: auto;
-            border: 1px solid rgba(255,255,255,0.03);
-            margin-bottom: 15px;
+            list-style: none; background: rgba(15, 17, 20, 0.4); border-radius: 10px;
+            max-height: 140px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.03); margin-bottom: 15px;
         }
-        .cart-list li {
-            padding: 8px 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-        }
+        .cart-list li { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.03); display: flex; justify-content: space-between; font-size: 13px; }
         .cart-list li:last-child { border-bottom: none; }
         .cart-total-box {
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 15px;
+            display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 15px;
             background: rgba(0,0,0,0.2); padding: 10px 12px; border-radius: 8px;
         }
 
@@ -216,43 +185,21 @@
         
         /* --- PC CARD STYLING --- */
         .pc-card { 
-            background: rgba(30, 33, 40, 0.4); 
-            backdrop-filter: blur(8px);
-            border-radius: 16px; padding: 20px; height: 150px; display: flex; flex-direction: column; justify-content: space-between; 
-            border: 1px solid rgba(255,255,255,0.06); position: relative; 
-            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); 
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15); 
+            background: rgba(30, 33, 40, 0.4); backdrop-filter: blur(8px); border-radius: 16px; padding: 20px; height: 150px;
+            display: flex; flex-direction: column; justify-content: space-between; border: 1px solid rgba(255,255,255,0.06); position: relative; 
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: 0 8px 25px rgba(0,0,0,0.15); 
         }
-        .pc-card:hover { 
-            transform: translateY(-6px) scale(1.02); 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4); 
-            border-color: rgba(255,255,255,0.15); 
-            background: rgba(40, 45, 55, 0.6);
-        }
-        .pc-card.online { 
-            background: rgba(44, 60, 95, 0.6); 
-            border-color: rgba(88, 101, 242, 0.5); box-shadow: 0 0 25px rgba(88, 101, 242, 0.15); 
-        }
-        .pc-card.online:hover {
-            box-shadow: 0 10px 40px rgba(88, 101, 242, 0.3); 
-            border-color: rgba(88, 101, 242, 0.8);
-        }
+        .pc-card:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 15px 35px rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.15); background: rgba(40, 45, 55, 0.6); }
+        .pc-card.online { background: rgba(44, 60, 95, 0.6); border-color: rgba(88, 101, 242, 0.5); box-shadow: 0 0 25px rgba(88, 101, 242, 0.15); }
+        .pc-card.online:hover { box-shadow: 0 10px 40px rgba(88, 101, 242, 0.3); border-color: rgba(88, 101, 242, 0.8); }
 
         /* VIP PC (1 - 5) */
-        .pc-card.vip {
-            background: linear-gradient(135deg, rgba(60, 45, 20, 0.4), rgba(30, 25, 15, 0.6));
-            border-color: rgba(245, 166, 35, 0.2);
-        }
+        .pc-card.vip { background: linear-gradient(135deg, rgba(60, 45, 20, 0.4), rgba(30, 25, 15, 0.6)); border-color: rgba(245, 166, 35, 0.2); }
         .pc-card.vip:hover { border-color: rgba(245, 166, 35, 0.6); box-shadow: 0 15px 35px rgba(245, 166, 35, 0.1); }
-        .pc-card.vip.online {
-            background: linear-gradient(135deg, rgba(100, 70, 25, 0.6), rgba(50, 35, 15, 0.7));
-            border-color: rgba(245, 166, 35, 0.8); box-shadow: 0 0 30px rgba(245, 166, 35, 0.2);
-        }
+        .pc-card.vip.online { background: linear-gradient(135deg, rgba(100, 70, 25, 0.6), rgba(50, 35, 15, 0.7)); border-color: rgba(245, 166, 35, 0.8); box-shadow: 0 0 30px rgba(245, 166, 35, 0.2); }
         .vip-badge {
-            background: linear-gradient(90deg, #f6d365, #fda085);
-            color: #111; padding: 2px 8px; border-radius: 12px; font-size: 9px; font-weight: 900;
-            margin-left: 8px; letter-spacing: 0.5px; text-transform: uppercase;
-            box-shadow: 0 2px 5px rgba(245, 166, 35, 0.3);
+            background: linear-gradient(90deg, #f6d365, #fda085); color: #111; padding: 2px 8px; border-radius: 12px; font-size: 9px; font-weight: 900;
+            margin-left: 8px; letter-spacing: 0.5px; text-transform: uppercase; box-shadow: 0 2px 5px rgba(245, 166, 35, 0.3);
         }
         
         .pc-header { display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: #a1a4a9; font-weight: 800; letter-spacing: 0.5px;}
@@ -275,10 +222,8 @@
         .menu-dots:hover { background: rgba(255,255,255,0.1); color: white; }
         
         .action-menu { 
-            display: none; position: absolute; top: 45px; right: 15px; 
-            background: rgba(20, 22, 27, 0.95); backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; 
-            z-index: 100; box-shadow: 0 15px 35px rgba(0,0,0,0.5); overflow: hidden; min-width: 160px; 
+            display: none; position: absolute; top: 45px; right: 15px; background: rgba(20, 22, 27, 0.95); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; z-index: 100; box-shadow: 0 15px 35px rgba(0,0,0,0.5); overflow: hidden; min-width: 160px; 
         }
         .action-menu.show { display: block; animation: menuFadeIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .action-menu button { background: transparent; padding: 14px 18px; border: none; border-bottom: 1px solid rgba(255,255,255,0.03); cursor: pointer; text-align: left; width: 100%; font-weight: 700; font-size: 13px; transition: background 0.2s;}
@@ -291,10 +236,8 @@
         .member-dots { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 16px; padding: 2px 6px; border-radius: 4px; color: #a1a4a9; }
         .member-dots:hover { background: rgba(255,255,255,0.1); color: white; }
         .db-action-menu {
-            display: none; position: absolute; top: 35px; right: 5px;
-            background: rgba(20, 22, 27, 0.98); backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
-            z-index: 150; box-shadow: 0 10px 25px rgba(0,0,0,0.5); overflow: hidden; min-width: 140px;
+            display: none; position: absolute; top: 35px; right: 5px; background: rgba(20, 22, 27, 0.98); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; z-index: 150; box-shadow: 0 10px 25px rgba(0,0,0,0.5); overflow: hidden; min-width: 140px;
         }
         .db-action-menu.show { display: block; animation: menuFadeIn 0.15s ease-out; }
         .db-action-menu button { background: transparent; padding: 10px 14px; border: none; border-bottom: 1px solid rgba(255,255,255,0.03); cursor: pointer; text-align: left; width: 100%; font-weight: 600; font-size: 12px; }
@@ -314,11 +257,8 @@
         }
         .modal-overlay.show { display: flex; opacity: 1; }
         .modal-box {
-            background: rgba(25, 28, 33, 0.95); backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; width: 400px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            transform: scale(0.95) translateY(20px); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            overflow: hidden;
+            background: rgba(25, 28, 33, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; width: 400px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5); transform: scale(0.95) translateY(20px); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow: hidden;
         }
         .modal-overlay.show .modal-box { transform: scale(1) translateY(0); }
         .modal-header { color: white; padding: 20px 25px; font-size: 16px; font-weight: 800; text-align: center; display: flex; justify-content: center; align-items: center; gap: 10px; }
@@ -338,7 +278,21 @@
 </head>
 <body>
 
-    <!-- APPLICATION NAVBAR -->
+    <div class="auth-gate-overlay" id="authGate">
+        <div class="auth-gate-box">
+            <h2>🔐 Warnet Derhan123</h2>
+            <p>Authorization Required to Access Operator Terminal</p>
+            <div class="error-msg" id="authErrorMsg">⚠️ Invalid admin credentials!</div>
+            <div class="input-wrapper">
+                <input type="text" id="gateUser" placeholder="Username" autocomplete="off">
+            </div>
+            <div class="input-wrapper">
+                <input type="password" id="gatePass" placeholder="Password">
+            </div>
+            <button class="btn-green" onclick="verifyAdminGate()">Login Terminal</button>
+        </div>
+    </div>
+
     <div class="navbar">
         <div class="brand">WARNET DERHAN123</div>
         <div class="nav-tabs">
@@ -349,17 +303,14 @@
         </div>
     </div>
 
-    <!-- MAIN INTERFACE HEADER -->
     <div class="header">
         
-        <!-- Tab 1: Dashboard Panel -->
         <div class="tab-content active" id="tab-dashboard">
             <div class="control-group" style="padding: 12px; display: flex; align-items: center; justify-content: center; background: rgba(114, 137, 218, 0.05);">
                 <span style="font-size: 13px; color: #7289da; font-weight: bold; letter-spacing: 0.5px;">💡 OPERATOR NOTE: USE THE 3-DOTS (⋮) ON EACH PC CARD TO CONTROL OR LOGOUT SESSIONS</span>
             </div>
         </div>
 
-        <!-- Tab 2: Members Control Panel -->
         <div class="tab-content" id="tab-members">
             <div class="control-group">
                 <h3>✦ New Member Registration</h3>
@@ -379,7 +330,6 @@
             </div>
         </div>
 
-        <!-- Tab 3: Billing Allocation Panel -->
         <div class="tab-content" id="tab-billing">
             <div class="control-group">
                 <h3>✦ PC Allocation & Time Session</h3>
@@ -390,13 +340,10 @@
             </div>
         </div>
 
-        <!-- Tab 4: NEW - Cafe F&B Menu Hub System -->
         <div class="tab-content" id="tab-cafe">
             <div class="control-group" style="flex: 2;">
                 <h3>✦ Premium Food & Beverage Menu</h3>
-                <div class="food-grid" id="foodMenuGrid">
-                    <!-- Cards injected by JS -->
-                </div>
+                <div class="food-grid" id="foodMenuGrid"></div>
             </div>
             <div class="control-group" style="flex: 1.2;">
                 <h3>🛒 Order Cart</h3>
@@ -408,9 +355,7 @@
                     <span id="cartTotalPriceVisual">Rp 0</span>
                 </div>
                 <div class="input-wrapper">
-                    <select id="deliveryTargetPC">
-                        <!-- Filled by JS -->
-                    </select>
+                    <select id="deliveryTargetPC"></select>
                 </div>
                 <button class="btn-cart" onclick="checkoutCafeOrder()">Place Cafe Order</button>
             </div>
@@ -418,12 +363,8 @@
 
     </div>
 
-    <!-- MAIN MONITOR GRID -->
-    <div class="grid-container" id="pcGrid">
-        <!-- Generated Cards via JavaScript -->
-    </div>
+    <div class="grid-container" id="pcGrid"></div>
 
-    <!-- DYNAMIC DIALOG MODAL OVERLAY -->
     <div class="modal-overlay" id="customModal">
         <div class="modal-box">
             <div class="modal-header" id="modalHeader"></div>
@@ -460,6 +401,32 @@
             timeRemaining: 0 
         });
     }
+
+    // --- 🔐 SECURITY GATE VERIFICATION LOGIC ---
+    function verifyAdminGate() {
+        let userInp = document.getElementById("gateUser").value.trim();
+        let passInp = document.getElementById("gatePass").value;
+        let errorEl = document.getElementById("authErrorMsg");
+
+        if (userInp === "admin" && passInp === "Warnetderhan123") {
+            // Success: Remove screen overlay with animation
+            let gate = document.getElementById("authGate");
+            gate.style.opacity = "0";
+            setTimeout(() => {
+                gate.style.display = "none";
+            }, 400);
+        } else {
+            // Failure: Show premium blinking error
+            errorEl.style.display = "block";
+            document.getElementById("gatePass").value = "";
+            document.getElementById("gatePass").focus();
+        }
+    }
+
+    // Allow pressing "Enter" key to login inside security gate
+    document.getElementById("gatePass").addEventListener("keyup", function(event) {
+        if (event.key === "Enter") verifyAdminGate();
+    });
 
     // --- TAB SWITCHER LOGIC ---
     function switchTab(tabId) {
@@ -588,7 +555,6 @@
         });
     }
 
-    // --- NEW: GENERATE CAFE F&B INTERFACES ---
     function renderFoodMenuHub() {
         let menuGrid = document.getElementById('foodMenuGrid');
         menuGrid.innerHTML = '';
@@ -648,7 +614,6 @@
         
         let pc = pcs.find(p => p.id == targetPcId);
         
-        // Show premium modal processing checkout orders
         document.getElementById('modalHeader').innerHTML = `🍳 Order Sent to Kitchen!`;
         document.getElementById('modalHeader').style.background = `linear-gradient(135deg, #e67e22, #d35400)`;
         
@@ -669,7 +634,7 @@
         updateCartVisuals();
         document.getElementById('deliveryTargetPC').value = "";
         tutupModal();
-        document.querySelector('.nav-tab').click(); // Switch view safely to monitor grid dashboard 
+        document.querySelector('.nav-tab').click(); 
     }
 
     // --- POPUP MENU INTERCHANGES ---
@@ -905,7 +870,7 @@
                 pc.timeRemaining--; adaYangAktif = true;
                 if(pc.timeRemaining <= 0) {
                     pc.status = 'offline'; pc.user = null; pc.timeRemaining = 0;
-                    renderApp(); // Update station to match deployment
+                    renderApp(); 
                 }
             }
         });
