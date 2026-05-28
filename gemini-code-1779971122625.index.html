@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Operator Warnet Derhan123</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; margin: 0; padding: 20px; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; }
+        .box { background: #e9ecef; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+        input { width: 90%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
+        button { width: 100%; padding: 10px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        button:hover { background-color: #218838; }
+        .btn-blue { background-color: #007bff; }
+        .btn-blue:hover { background-color: #0056b3; }
+        ul { list-style-type: none; padding: 0; }
+        li { background: #fff; padding: 10px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Simulasi Operator Warnet Derhan123</h2>
+
+    <!-- Bagian Pendaftaran Member -->
+    <div class="box">
+        <h3>1. Buat Member Baru</h3>
+        <input type="text" id="namaMember" placeholder="Nama Username">
+        <input type="password" id="passMember" placeholder="Password">
+        <button onclick="buatMember()">Simpan ke Database</button>
+    </div>
+
+    <!-- Bagian Isi Billing -->
+    <div class="box">
+        <h3>2. Isi Billing Member</h3>
+        <input type="text" id="namaBilling" placeholder="Nama Username Member">
+        <input type="number" id="jamBilling" placeholder="Jumlah Waktu (Jam)">
+        <button class="btn-blue" onclick="isiBilling()">Tambahkan Billing</button>
+    </div>
+
+    <!-- Tampilan Database -->
+    <div class="box">
+        <h3>Database Member Aktif</h3>
+        <ul id="listDatabase"></ul>
+    </div>
+</div>
+
+<script>
+    // Mengambil data dari LocalStorage (Simulasi Database)
+    let database = JSON.parse(localStorage.getItem('dbWarnet')) || [];
+
+    // Fungsi untuk membuat member baru
+    function buatMember() {
+        let nama = document.getElementById("namaMember").value;
+        let pass = document.getElementById("passMember").value;
+
+        if(nama === "" || pass === "") {
+            alert("Nama dan Password tidak boleh kosong!");
+            return;
+        }
+
+        // Cek apakah nama sudah ada
+        let cekData = database.find(member => member.nama === nama);
+        if(cekData) {
+            alert("Username sudah terdaftar! Gunakan nama lain.");
+            return;
+        }
+
+        // Simpan ke array
+        database.push({ nama: nama, password: pass, billing_jam: 0 });
+        
+        // Simpan ke LocalStorage
+        localStorage.setItem('dbWarnet', JSON.stringify(database));
+        
+        alert("Member " + nama + " berhasil dibuat!");
+        document.getElementById("namaMember").value = "";
+        document.getElementById("passMember").value = "";
+        tampilkanDatabase();
+    }
+
+    // Fungsi untuk mengisi billing
+    function isiBilling() {
+        let nama = document.getElementById("namaBilling").value;
+        let jam = parseInt(document.getElementById("jamBilling").value);
+
+        if(nama === "" || isNaN(jam) || jam <= 0) {
+            alert("Masukkan nama dan jumlah jam yang benar!");
+            return;
+        }
+
+        // Cari member di database
+        let index = database.findIndex(member => member.nama === nama);
+
+        if(index !== -1) {
+            database[index].billing_jam += jam; // Tambah billing
+            localStorage.setItem('dbWarnet', JSON.stringify(database)); // Update LocalStorage
+            
+            alert("Berhasil mengisi " + jam + " Jam untuk member: " + nama);
+            document.getElementById("namaBilling").value = "";
+            document.getElementById("jamBilling").value = "";
+            tampilkanDatabase();
+        } else {
+            alert("Member tidak ditemukan di database!");
+        }
+    }
+
+    // Fungsi untuk menampilkan data ke layar
+    function tampilkanDatabase() {
+        let list = document.getElementById("listDatabase");
+        list.innerHTML = ""; // Bersihkan list sebelum update
+
+        database.forEach(member => {
+            let li = document.createElement("li");
+            li.innerHTML = `<span>👤 <b>${member.nama}</b></span> <span>⏳ ${member.billing_jam} Jam</span>`;
+            list.appendChild(li);
+        });
+    }
+
+    // Tampilkan database saat pertama kali aplikasi dibuka
+    tampilkanDatabase();
+</script>
+
+</body>
+</html>
